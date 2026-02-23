@@ -97,6 +97,22 @@ create table leads (
 );
 ```
 
+Customers table schema (create in Supabase):
+
+```sql
+create table customers (
+	id serial primary key,
+	name text not null,
+	phone text not null,
+	email text,
+	cpf text,
+	birthday date,
+	address text,
+	plan text,
+	created_at timestamptz default now()
+);
+```
+
 Behavior: when the contact form is submitted the client will POST to `/api/leads` (server) which inserts into Supabase and then opens WhatsApp (so you keep the same contact flow while storing leads).
 
 Security note: keep `SUPABASE_SERVICE_ROLE_KEY` secret in Vercel; do not expose it to the browser.

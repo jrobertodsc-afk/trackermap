@@ -48,6 +48,31 @@
   "url": "https://trackermap.com.br",
   "priceRange": "R$ 39,90 - R$ 69,90"
 }
+/* --- REGISTER CUSTOMER (store in Supabase) --- */
+async function registerCustomer() {
+  const nome  = document.getElementById('c_nome').value.trim();
+  const tel   = document.getElementById('c_tel').value.trim();
+  const email = document.getElementById('c_email').value.trim();
+  const plano = document.getElementById('c_plan').value;
+  const msg   = document.getElementById('c_msg').value.trim();
+  if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
+
+  const payload = { name: nome, phone: tel, email: email, plan: plano, address: '', message: msg };
+  try {
+    const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    if (!r.ok) {
+      const t = await r.text();
+      console.warn('register failed', t);
+      alert('Ocorreu um erro ao registrar. Tentaremos novamente via WhatsApp.');
+    } else {
+      alert('Cadastro recebido! Em breve entraremos em contato.');
+      document.getElementById('c_nome').value=''; document.getElementById('c_tel').value=''; document.getElementById('c_email').value=''; document.getElementById('c_msg').value=''; document.getElementById('c_plan').value='';
+    }
+  } catch (e) {
+    console.warn('register error', e);
+    alert('Erro de rede ao registrar.');
+  }
+}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -510,7 +535,8 @@ footer { background: var(--black); padding: 50px 60px 28px; border-top: 1px soli
       <li><a href="#planos">Planos</a></li>
       <li><a href="#quem-confia">Quem Confia</a></li>
       <li><a href="#faq">FAQ</a></li>
-      <li><a href="#contato">Contato</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="#cadastro" class="btn-outline">Cadastro</a></li>
       <li><a href="https://www.protrack365.com/" target="_blank" rel="noopener" class="btn-portal">🔐 Portal do Cliente</a></li>
     </ul>
   </nav>
@@ -558,6 +584,47 @@ footer { background: var(--black); padding: 50px 60px 28px; border-top: 1px soli
           <div class="hero-stat-label">Monitoramento Ativo</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CADASTRO (Registro de Clientes) -->
+<section id="cadastro" class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">Cadastro</span>
+    <h2 class="section-title">CADASTRE-SE <span>AGORA</span></h2>
+    <p class="section-desc">Preencha seus dados que entraremos em contato para agendar a instalação e ativar sua conta.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label for="c_nome">Nome Completo</label>
+        <input type="text" id="c_nome" placeholder="Nome e sobrenome">
+      </div>
+      <div class="form-group">
+        <label for="c_tel">WhatsApp / Telefone</label>
+        <input type="tel" id="c_tel" placeholder="(71) 9 0000-0000" maxlength="16">
+      </div>
+      <div class="form-group">
+        <label for="c_email">Email (opcional)</label>
+        <input type="email" id="c_email" placeholder="seu@exemplo.com">
+      </div>
+      <div class="form-group">
+        <label for="c_plan">Plano de Interesse</label>
+        <select id="c_plan">
+          <option value="">Selecione um plano...</option>
+          <option>Easy — R$ 39,90/mês</option>
+          <option>Premium — R$ 49,90/mês</option>
+          <option>Smart — R$ 59,90/mês</option>
+          <option>Anual — R$ 69,90/mês</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="c_msg">Observações</label>
+        <textarea id="c_msg" placeholder="Observações... (opcional)"></textarea>
+      </div>
+      <button class="btn-submit" onclick="registerCustomer()">📥 Registrar</button>
     </div>
   </div>
 </section>
