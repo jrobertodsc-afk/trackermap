@@ -53,21 +53,16 @@
 <script>
 /* --- REGISTER CUSTOMER (store in Supabase) --- */
 async function registerCustomer() {
-  const nome  = document.getElementById('c_nome').value.trim();
-  const tel   = document.getElementById('c_tel').value.trim();
-  const email = document.getElementById('c_email').value.trim();
-  const plano = document.getElementById('c_plan').value;
-  const msg   = document.getElementById('c_msg').value.trim();
-  if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
+  try {
+    const nome  = document.getElementById('c_nome').value.trim();
+    const tel   = document.getElementById('c_tel').value.trim();
+    const email = document.getElementById('c_email').value.trim();
+    const plano = document.getElementById('c_plan').value;
+    const msg   = document.getElementById('c_msg').value.trim();
+    if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
 
-  const payload = { name: nome, phone: tel, email: email, plan: plano, address: '', message: msg };
-  </script>
-  <script>
-  // ensure global exposure for inline `onclick` handlers
-  if (typeof window !== 'undefined' && !window.registerCustomer) {
-    window.registerCustomer = registerCustomer;
-  }
-  </script>
+    const payload = { name: nome, phone: tel, email: email, plan: plano, address: '', message: msg };
+
     const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!r.ok) {
       const t = await r.text();
@@ -75,13 +70,24 @@ async function registerCustomer() {
       alert('Ocorreu um erro ao registrar. Tentaremos novamente via WhatsApp.');
     } else {
       alert('Cadastro recebido! Em breve entraremos em contato.');
-      document.getElementById('c_nome').value=''; document.getElementById('c_tel').value=''; document.getElementById('c_email').value=''; document.getElementById('c_msg').value=''; document.getElementById('c_plan').value='';
+      document.getElementById('c_nome').value='';
+      document.getElementById('c_tel').value='';
+      document.getElementById('c_email').value='';
+      document.getElementById('c_msg').value='';
+      document.getElementById('c_plan').value='';
     }
   } catch (e) {
     console.warn('register error', e);
     alert('Erro de rede ao registrar.');
   }
 }
+
+// expose and attach safely
+window.registerCustomer = registerCustomer;
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.querySelector('button.btn-submit[onclick]');
+  if (btn) btn.addEventListener('click', registerCustomer);
+});
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
