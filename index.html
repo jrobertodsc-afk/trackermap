@@ -51,7 +51,11 @@
 </script>
 
 <script>
-/* --- REGISTER CUSTOMER (store in Supabase) --- */
+/* --- REGISTER CUSTOMER (browser → Supabase using anon key) --- */
+// Substitua os placeholders abaixo pelos valores do seu projeto Supabase
+const SUPABASE_URL = 'https://cgjzyenrzqnjzzseqici.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
 async function registerCustomer() {
   try {
     const nome  = document.getElementById('c_nome').value.trim();
@@ -61,33 +65,42 @@ async function registerCustomer() {
     const msg   = document.getElementById('c_msg').value.trim();
     if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
 
-    const payload = { name: nome, phone: tel, email: email, plan: plano, address: '', message: msg };
+    const payload = [{ name: nome, phone: tel, email: email || null, plan: plano || null, message: msg || null }];
 
-    const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(payload)
+    });
+
     if (!r.ok) {
       const t = await r.text();
       console.warn('register failed', t);
       alert('Ocorreu um erro ao registrar. Tentaremos novamente via WhatsApp.');
-    } else {
-      alert('Cadastro recebido! Em breve entraremos em contato.');
-      document.getElementById('c_nome').value='';
-      document.getElementById('c_tel').value='';
-      document.getElementById('c_email').value='';
-      document.getElementById('c_msg').value='';
-      document.getElementById('c_plan').value='';
+      return;
     }
+
+    // sucesso
+    await r.json();
+    alert('Cadastro recebido! Em breve entraremos em contato.');
+    document.getElementById('c_nome').value = '';
+    document.getElementById('c_tel').value  = '';
+    document.getElementById('c_email').value= '';
+    document.getElementById('c_msg').value  = '';
+    document.getElementById('c_plan').value = '';
   } catch (e) {
     console.warn('register error', e);
     alert('Erro de rede ao registrar.');
   }
 }
 
-// expose and attach safely
+// garantir compatibilidade com handlers inline
 window.registerCustomer = registerCustomer;
-document.addEventListener('DOMContentLoaded', function(){
-  const btn = document.querySelector('button.btn-submit[onclick]');
-  if (btn) btn.addEventListener('click', registerCustomer);
-});
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1094,11 +1107,17 @@ async function submitLead() {
   const payload = { name: nome, phone: tel, plan: plano, message: msg, source_page: window.location.href };
 
   try {
-    // send to our serverless leads endpoint (will store in Supabase)
-    const r = await fetch('/api/leads', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    // send directly to Supabase REST using anon key
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify([payload])
     });
-    // ignore response errors for UX — we still open WhatsApp
     if (!r.ok) console.warn('lead save failed', await r.text());
   } catch (e) {
     console.warn('lead save error', e);
