@@ -75,6 +75,12 @@ This project now includes a serverless endpoint to capture leads into Supabase:
 	- `SUPABASE_URL` (e.g. https://xyz.supabase.co)
 	- `SUPABASE_SERVICE_ROLE_KEY` (service_role key; keep secret)
 
+
+Optional: n8n webhook
+- `N8N_WEBHOOK_URL` (optional) — if set, the serverless endpoints will POST newly created records to this URL so an n8n workflow can take action (welcome messages, SMS/WhatsApp via Twilio, email via SendGrid).
+
+Example payloads are in `n8n/README_n8n.md`.
+
 Payload example (JSON):
 
 ```json

@@ -52,7 +52,23 @@ export default async function handler(req, res) {
     }
 
     const data = await r.json();
-    return res.status(201).json({ ok: true, record: data[0] || data });
+    const record = data[0] || data;
+
+    // If an n8n webhook is configured, POST the lead for downstream workflows
+    try {
+      const N8N = process.env.N8N_WEBHOOK_URL;
+      if (N8N) {
+        await fetch(N8N, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: 'lead.created', record })
+        });
+      }
+    } catch (e) {
+      console.warn('n8n webhook error', String(e));
+    }
+
+    return res.status(201).json({ ok: true, record });
   } catch (err) {
     return res.status(500).json({ error: 'server_error', details: String(err) });
   }
