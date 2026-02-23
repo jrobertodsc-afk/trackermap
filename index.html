@@ -849,7 +849,7 @@ footer { background: var(--black); padding: 50px 60px 28px; border-top: 1px soli
         <label for="msg">Mensagem</label>
         <textarea id="msg" placeholder="Conte mais sobre sua necessidade..."></textarea>
       </div>
-      <button class="btn-submit" onclick="enviarWpp()">📲 Enviar pelo WhatsApp</button>
+      <button class="btn-submit" onclick="submitLead()">📲 Enviar pelo WhatsApp</button>
     </div>
   </div>
 </section>
@@ -991,6 +991,38 @@ function enviarWpp() {
   const plano = document.getElementById('plano').value;
   const msg   = document.getElementById('msg').value.trim();
   if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
+  let txt = `Olá, TrackerMap! 👋\n\n`;
+  if (nome)  txt += `*Nome:* ${nome}\n`;
+  if (tel)   txt += `*Telefone:* ${tel}\n`;
+  if (plano) txt += `*Interesse:* ${plano}\n`;
+  if (msg)   txt += `*Mensagem:* ${msg}\n`;
+  window.open(`https://wa.me/5571982608738?text=${encodeURIComponent(txt)}`, '_blank');
+  document.getElementById('page-obrigado').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+/* --- SUBMIT LEAD (stores to Supabase and opens WhatsApp) --- */
+async function submitLead() {
+  const nome  = document.getElementById('nome').value.trim();
+  const tel   = document.getElementById('tel').value.trim();
+  const plano = document.getElementById('plano').value;
+  const msg   = document.getElementById('msg').value.trim();
+  if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
+
+  const payload = { name: nome, phone: tel, plan: plano, message: msg, source_page: window.location.href };
+
+  try {
+    // send to our serverless leads endpoint (will store in Supabase)
+    const r = await fetch('/api/leads', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    // ignore response errors for UX — we still open WhatsApp
+    if (!r.ok) console.warn('lead save failed', await r.text());
+  } catch (e) {
+    console.warn('lead save error', e);
+  }
+
+  // proceed to open WhatsApp and show overlay
   let txt = `Olá, TrackerMap! 👋\n\n`;
   if (nome)  txt += `*Nome:* ${nome}\n`;
   if (tel)   txt += `*Telefone:* ${tel}\n`;

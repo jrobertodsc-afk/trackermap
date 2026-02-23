@@ -65,3 +65,39 @@ Configuração necessária no Vercel (Project → Settings → Environment Varia
 - `PROTRACK_AUTH_MODE` — `auto` | `basic` | `query` (se `query`, o proxy adiciona `USER`/`PASS` como parâmetros de query)
 
 Observação: o proxy apenas repassa requisições para o endpoint configurado; ajuste `query` conforme os métodos documentados pela ProTrack (https://www.protrack365.com/api.jsp#API1).
+
+## Lead capture (Supabase)
+
+This project now includes a serverless endpoint to capture leads into Supabase:
+
+- Endpoint: `/api/leads` (POST)
+- Required Vercel env vars:
+	- `SUPABASE_URL` (e.g. https://xyz.supabase.co)
+	- `SUPABASE_SERVICE_ROLE_KEY` (service_role key; keep secret)
+
+Payload example (JSON):
+
+```json
+{ "name": "João", "phone": "(71) 9xxxx-xxxx", "plan": "Premium", "message": "Quero mais info" }
+```
+
+What to create in Supabase:
+
+Run this SQL in Supabase SQL editor to create a simple `leads` table:
+
+```sql
+create table leads (
+	id serial primary key,
+	name text,
+	phone text,
+	plan text,
+	message text,
+	source_page text,
+	created_at timestamptz default now()
+);
+```
+
+Behavior: when the contact form is submitted the client will POST to `/api/leads` (server) which inserts into Supabase and then opens WhatsApp (so you keep the same contact flow while storing leads).
+
+Security note: keep `SUPABASE_SERVICE_ROLE_KEY` secret in Vercel; do not expose it to the browser.
+
