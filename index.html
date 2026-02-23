@@ -48,6 +48,9 @@
   "url": "https://trackermap.com.br",
   "priceRange": "R$ 39,90 - R$ 69,90"
 }
+</script>
+
+<script>
 /* --- REGISTER CUSTOMER (store in Supabase) --- */
 async function registerCustomer() {
   const nome  = document.getElementById('c_nome').value.trim();
@@ -58,7 +61,13 @@ async function registerCustomer() {
   if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
 
   const payload = { name: nome, phone: tel, email: email, plan: plano, address: '', message: msg };
-  try {
+  </script>
+  <script>
+  // ensure global exposure for inline `onclick` handlers
+  if (typeof window !== 'undefined' && !window.registerCustomer) {
+    window.registerCustomer = registerCustomer;
+  }
+  </script>
     const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!r.ok) {
       const t = await r.text();
