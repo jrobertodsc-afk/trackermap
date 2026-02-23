@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== SEO META TAGS ===== -->
+<title>TrackerMap - Rastreamento Veicular em Salvador, Bahia</title>
+<meta name="description" content="TrackerMap oferece rastreamento veicular com tecnologia GPS e Inteligência Artificial. Planos a partir de R$ 39,90/mês. Atendemos Salvador e todo o Brasil. (71) 98260-8738">
+<meta name="keywords" content="rastreamento veicular, GPS veicular, rastreador carro, rastreador caminhão, frota, Salvador, Bahia, TrackerMap">
+<meta name="author" content="TrackerMap Rastreamento Veicular">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://trackermap.com.br">
+
+<!-- ===== OPEN GRAPH (WhatsApp, Facebook) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trackermap.com.br">
+<meta property="og:title" content="TrackerMap - Rastreamento Veicular">
+<meta property="og:description" content="Proteja seu veículo com tecnologia GPS e IA. Planos a partir de R$ 39,90/mês. Atendemos em todo o Brasil!">
+<meta property="og:image" content="TrackerMap_Rastreamento_.jpg">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="TrackerMap">
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TrackerMap - Rastreamento Veicular">
+<meta name="twitter:description" content="Proteja seu veículo com tecnologia GPS e IA. Planos a partir de R$ 39,90/mês.">
+<meta name="twitter:image" content="TrackerMap_Rastreamento_.jpg">
+
+<!-- ===== FAVICON ===== -->
+<link rel="icon" type="image/jpeg" href="TrackerMap_Rastreamento_.jpg">
+<link rel="apple-touch-icon" href="TrackerMap_Rastreamento_.jpg">
+
+<!-- ===== SCHEMA (Google Rich Results) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "TrackerMap Rastreamento Veicular",
+  "description": "Rastreamento veicular com tecnologia GPS e Inteligência Artificial",
+  "telephone": "+55-71-98260-8738",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Salvador",
+    "addressRegion": "BA",
+    "addressCountry": "BR"
+  },
+  "url": "https://trackermap.com.br",
+  "priceRange": "R$ 39,90 - R$ 69,90"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700;900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --brown:       #3D1A0E;
+  --brown-mid:   #5C2D1A;
+  --brown-light: #7A3B22;
+  --orange:      #E8650A;
+  --orange-lt:   #FF8C2A;
+  --black:       #080808;
+  --dark:        #111111;
+  --card:        #161616;
+  --white:       #F5F0EB;
+  /* muted and border tuned for better contrast (adjusted opacities only) */
+  --muted:       rgba(245,240,235,0.72);
+  --border:      rgba(232,101,10,0.22);
+
+  /* Semantic tokens (map to existing palette variables) */
+  --bg: var(--black);          /* page / deep background */
+  --surface: var(--card);     /* cards and panels */
+  --text: var(--white);       /* primary text */
+  --cta: var(--orange);       /* call-to-action / accent */
+  --role-border: var(--border); /* border/outline tone */
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ===== NAVBAR ===== */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 60px;
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo img { height: 52px; width: 52px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 18px rgba(232,101,10,0.45); transition: transform 0.3s; }
+.nav-logo:hover img { transform: scale(1.07); }
+.nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 3px; color: var(--white); }
+.nav-logo-text span { color: var(--cta); }
+.nav-links { display: flex; list-style: none; align-items: center; gap: 32px; }
+.nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,235,0.8); transition: color 0.3s; position: relative; padding-bottom: 4px; }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s; }
+.nav-links a:hover { color: var(--cta); }
+.nav-links a:hover::after { width: 100%; }
+.btn-portal { background: linear-gradient(135deg, var(--cta), var(--orange-lt)) !important; color: var(--black) !important; padding: 11px 24px !important; border-radius: 4px !important; font-weight: 700 !important; box-shadow: 0 4px 18px rgba(232,101,10,0.35); white-space: nowrap; }
+.btn-portal:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 28px rgba(232,101,10,0.55) !important; }
+.btn-portal::after { display: none !important; }
+.nav-toggle { display: none; background: transparent; border: 1px solid rgba(232,101,10,0.4); color: var(--orange); font-size: 22px; width: 42px; height: 42px; border-radius: 4px; align-items: center; justify-content: center; transition: background 0.3s; }
+.nav-toggle:hover { background: rgba(232,101,10,0.15); }
+
+/* ===== HERO ===== */
+#home { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding-top: 80px; }
+.hero-gradient { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0500, #1a0a03, #2d1507, #0a0500); background-size: 400% 400%; animation: gradientShift 10s ease infinite; }
+.hero-overlay { position: absolute; inset: 0; background-image: radial-gradient(rgba(232,101,10,0.05) 1px, transparent 1px); background-size: 32px 32px; z-index: 1; }
+@keyframes gradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 60px 60px 40px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,101,10,0.12); border: 1px solid rgba(232,101,10,0.35); padding: 7px 18px; border-radius: 30px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange-lt); margin-bottom: 28px; animation: fadeInDown 0.8s ease both; }
+.hero-badge::before { content: ''; width: 7px; height: 7px; background: var(--orange); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 7vw, 96px); line-height: 0.92; letter-spacing: 2px; margin-bottom: 22px; animation: fadeInUp 0.8s ease 0.15s both; }
+.hero-title .t-orange { color: var(--orange); display: block; }
+.hero-title .t-white  { color: var(--white);  display: block; }
+.hero-sub { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.75; max-width: 420px; margin-bottom: 40px; animation: fadeInUp 0.8s ease 0.3s both; }
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.45s both; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--orange), var(--orange-lt)); color: var(--black); padding: 15px 36px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: none; transition: all 0.3s; box-shadow: 0 8px 28px rgba(232,101,10,0.35); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 38px rgba(232,101,10,0.55); }
+.btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--white); padding: 15px 36px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border: 1px solid rgba(245,240,235,0.25); transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-3px); }
+.hero-right { display: flex; flex-direction: column; gap: 18px; animation: fadeInUp 0.9s ease 0.5s both; }
+.hero-stat-card { background: rgba(22,22,22,0.9); border: 1px solid var(--role-border); border-left: 3px solid var(--cta); padding: 20px 26px; border-radius: 4px; display: flex; align-items: center; gap: 18px; backdrop-filter: blur(8px); transition: transform 0.3s; }
+.hero-stat-card:hover { transform: translateX(6px); }
+.hero-stat-icon { font-size: 30px; flex-shrink: 0; }
+.hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--orange); line-height: 1; }
+.hero-stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+
+/* ===== CARROSSEL ===== */
+#carrossel { background: var(--dark); border-top: 1px solid var(--role-border); border-bottom: 1px solid var(--role-border); padding: 60px 0 70px; overflow: hidden; }
+.carrossel-header { text-align: center; margin-bottom: 40px; padding: 0 60px; }
+.carrossel-header p { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--cta); margin-bottom: 10px; }
+.carrossel-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px; color: var(--text); }
+.carrossel-header h3 span { color: var(--cta); }
+.carrossel-wrap { position: relative; overflow: hidden; }
+.carrossel-wrap::before, .carrossel-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none; }
+.carrossel-wrap::before { left: 0; background: linear-gradient(to right, var(--dark), transparent); }
+.carrossel-wrap::after  { right: 0; background: linear-gradient(to left,  var(--dark), transparent); }
+.carrossel-track { display: flex; gap: 20px; padding: 10px 60px; transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1); }
+.car-slide { flex: 0 0 340px; height: 220px; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--border); cursor: pointer; transition: transform 0.4s, border-color 0.4s; }
+.car-slide:hover { transform: scale(1.04); border-color: var(--orange); }
+.car-slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.car-slide:hover img { transform: scale(1.08); }
+.car-slide-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(8,8,8,0.92), transparent); padding: 20px 18px 16px; }
+.car-slide-label { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+.car-slide-sub { font-size: 11px; color: var(--orange); letter-spacing: 1px; margin-top: 2px; }
+.carrossel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 28px; }
+.carr-btn { width: 44px; height: 44px; background: rgba(232,101,10,0.1); border: 1px solid rgba(232,101,10,0.3); border-radius: 50%; color: var(--orange); font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+.carr-btn:hover { background: var(--orange); color: var(--black); }
+.carr-dots { display: flex; gap: 8px; }
+.carr-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(245,240,235,0.2); cursor: pointer; transition: all 0.3s; border: none; }
+.carr-dot.active { background: var(--orange); transform: scale(1.4); box-shadow: 0 0 8px var(--orange); }
+
+/* ===== SEÇÕES ===== */
+.section { padding: 110px 60px; }
+.section-tag { display: block; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 5.5vw, 68px); letter-spacing: 2px; line-height: 1; color: var(--white); margin-bottom: 18px; }
+.section-title span { color: var(--orange); }
+.section-desc { font-size: 15px; color: var(--muted); line-height: 1.75; }
+.section-header { text-align: center; margin-bottom: 72px; }
+.section-header .section-desc { max-width: 520px; margin: 0 auto; }
+.divider-line { width: 60px; height: 3px; background: linear-gradient(90deg, var(--orange), var(--brown-light)); margin: 20px auto 0; border-radius: 2px; }
+
+/* ===== COMO FUNCIONA ===== */
+#como-funciona { background: var(--bg); position: relative; }
+#como-funciona::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+.steps-wrapper { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; position: relative; }
+.steps-wrapper::before { content: ''; position: absolute; top: 52px; left: calc(12.5% + 22px); right: calc(12.5% + 22px); height: 2px; background: linear-gradient(90deg, var(--cta), var(--brown-light), var(--cta)); z-index: 0; }
+.step-card { background: var(--surface); border: 1px solid var(--role-border); border-radius: 6px; padding: 44px 24px 32px; text-align: center; position: relative; z-index: 1; transition: all 0.4s; }
+.step-card:hover { border-color: var(--orange); transform: translateY(-10px); box-shadow: 0 20px 50px rgba(232,101,10,0.15); }
+.step-num { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); width: 44px; height: 44px; background: linear-gradient(135deg, var(--cta), var(--brown-mid)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 20px; box-shadow: 0 0 20px rgba(232,101,10,0.5); }
+.step-icon { font-size: 44px; margin-bottom: 18px; display: block; }
+.step-title { font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ===== PLANOS ===== */
+.#planos { background: linear-gradient(180deg, var(--dark) 0%, var(--brown) 50%, var(--dark) 100%); position: relative; overflow: hidden; }
+.#planos::before { content: 'PLANOS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 280px; color: rgba(255,255,255,0.025); letter-spacing: 20px; white-space: nowrap; pointer-events: none; user-select: none; }
+.plan-card { background: rgba(10,10,10,0.9); border: 1px solid var(--role-border); border-radius: 6px; padding: 36px 26px 32px; position: relative; transition: all 0.4s; overflow: hidden; }
+.plan-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brown-light), var(--cta)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.plan-card:hover::after, .plan-card.featured::after { transform: scaleX(1); }
+.plan-card:hover { border-color: var(--cta); transform: translateY(-10px); box-shadow: 0 24px 60px rgba(232,101,10,0.18); }
+.plan-card.featured { border-color: var(--cta); background: linear-gradient(160deg, rgba(61,26,14,0.85), rgba(10,10,10,0.95)); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(232,101,10,0.2); }
+.plans-grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; align-items: start; }
+.plan-card { background: rgba(10,10,10,0.9); border: 1px solid var(--border); border-radius: 6px; padding: 36px 26px 32px; position: relative; transition: all 0.4s; overflow: hidden; }
+.plan-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brown-light), var(--orange)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.plan-card:hover::after, .plan-card.featured::after { transform: scaleX(1); }
+.plan-card:hover { border-color: var(--orange); transform: translateY(-10px); box-shadow: 0 24px 60px rgba(232,101,10,0.18); }
+.plan-card.featured { border-color: var(--orange); background: linear-gradient(160deg, rgba(61,26,14,0.85), rgba(10,10,10,0.95)); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(232,101,10,0.2); }
+.plan-card.featured:hover { transform: translateY(-14px); }
+.badge-popular { position: absolute; top: 14px; right: 14px; background: var(--orange); color: var(--black); font-size: 9px; font-weight: 700; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
+.plan-name { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 4px; color: var(--cta); margin-bottom: 6px; }
+.plan-price { display: flex; align-items: baseline; gap: 2px; margin-bottom: 6px; }
+.plan-currency { font-size: 16px; font-weight: 300; color: var(--muted); }
+.plan-amount { font-family: 'Bebas Neue', sans-serif; font-size: 58px; color: var(--white); line-height: 1; }
+.plan-period { font-size: 12px; color: var(--muted); align-self: flex-end; margin-bottom: 4px; }
+.plan-install { font-size: 12px; color: var(--cta); margin-bottom: 20px; font-weight: 600; }
+.plan-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(232,101,10,0.3), transparent); margin: 20px 0; }
+.plan-features { list-style: none; margin-bottom: 28px; }
+.plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(245,240,235,0.72); margin-bottom: 11px; line-height: 1.5; }
+.plan-features li::before { content: '▸'; color: var(--orange); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.plan-features li strong { color: var(--white); }
+.btn-plan { width: 100%; padding: 13px; background: transparent; border: 1px solid rgba(232,101,10,0.45); color: var(--orange); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; }
+.btn-plan:hover, .plan-card.featured .btn-plan { background: linear-gradient(135deg, var(--orange), var(--orange-lt)); border-color: var(--orange); color: var(--black); }
+.plan-obs { max-width: 860px; margin: 48px auto 0; text-align: center; font-size: 11px; color: rgba(245,240,235,0.3); line-height: 1.9; font-style: italic; padding: 20px 28px; border: 1px solid rgba(232,101,10,0.08); border-radius: 4px; }
+
+/* ===== QUEM CONFIA ===== */
+#quem-confia { background: var(--black); position: relative; }
+#quem-confia::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+.trust-numbers { max-width: 900px; margin: 0 auto 70px; display: grid; grid-template-columns: repeat(3,1fr); background: var(--card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.trust-num-item { padding: 44px 30px; text-align: center; border-right: 1px solid var(--border); transition: background 0.3s; }
+.trust-num-item:last-child { border-right: none; }
+.trust-num-item:hover { background: rgba(232,101,10,0.06); }
+.trust-num-value { font-family: 'Bebas Neue', sans-serif; font-size: 60px; color: var(--cta); line-height: 1; display: block; }
+.trust-num-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.clients-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 70px; max-width: 1000px; margin-left: auto; margin-right: auto; }
+.client-chip { background: rgba(61,26,14,0.25); border: 1px solid rgba(232,101,10,0.15); padding: 14px 28px; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,240,235,0.45); transition: all 0.3s; }
+.client-chip:hover { border-color: var(--orange); color: var(--orange); background: rgba(232,101,10,0.08); }
+.testimonials { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.testimonial { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 34px 30px; position: relative; transition: all 0.3s; }
+.testimonial:hover { border-color: rgba(232,101,10,0.4); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(232,101,10,0.1); }
+.testimonial-quote { position: absolute; top: 14px; right: 22px; font-family: 'Bebas Neue', sans-serif; font-size: 70px; color: rgba(232,101,10,0.12); line-height: 1; pointer-events: none; }
+.testimonial-stars { color: var(--orange); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.testimonial-text { font-size: 14px; color: rgba(245,240,235,0.72); line-height: 1.8; font-style: italic; margin-bottom: 24px; }
+.testimonial-author { display: flex; align-items: center; gap: 14px; }
+.author-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--orange), var(--brown-mid)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 17px; flex-shrink: 0; }
+.author-name { font-size: 14px; font-weight: 700; color: var(--white); }
+.author-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ===== FAQ ===== */
+#faq { background: var(--dark); position: relative; }
+#faq::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+
+.faq-wrapper { max-width: 800px; margin: 0 auto; }
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.faq-item.open { border-color: var(--orange); }
+
+.faq-question {
+  width: 100%;
+  background: var(--card);
+  border: none;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-align: left;
+}
+
+.faq-question:hover { background: rgba(232,101,10,0.08); }
+.faq-item.open .faq-question { background: rgba(232,101,10,0.1); }
+
+.faq-question-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+
+.faq-icon {
+  width: 28px; height: 28px;
+  background: rgba(232,101,10,0.15);
+  border: 1px solid rgba(232,101,10,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--cta);
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.faq-item.open .faq-icon { background: var(--orange); color: var(--black); transform: rotate(45deg); }
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  padding: 0 28px;
+}
+
+.faq-item.open .faq-answer { max-height: 300px; padding: 0 28px 22px; }
+
+.faq-answer p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  padding-top: 16px;
+  border-top: 1px solid rgba(232,101,10,0.1);
+}
+
+/* ===== CONTATO ===== */
+#contato { background: linear-gradient(180deg, var(--black), var(--brown) 100%); }
+.contact-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-info .section-title { font-size: 54px; }
+.contact-info > p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 36px; }
+.contact-items { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+.contact-item { display: flex; align-items: center; gap: 16px; }
+.contact-item-icon { width: 46px; height: 46px; background: rgba(232,101,10,0.1); border: 1px solid rgba(232,101,10,0.25); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.contact-item-text strong { display: block; font-size: 14px; color: var(--white); margin-bottom: 2px; }
+.contact-item-text span { font-size: 12px; color: var(--muted); }
+.app-badges { display: flex; gap: 12px; }
+.app-badge { display: flex; align-items: center; gap: 10px; background: rgba(245,240,235,0.06); border: 1px solid rgba(245,240,235,0.12); padding: 10px 18px; border-radius: 4px; transition: all 0.3s; }
+.app-badge:hover { background: rgba(232,101,10,0.15); border-color: var(--orange); }
+.app-badge .app-icon { font-size: 22px; }
+.app-badge .app-text small { display: block; font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.app-badge .app-text strong { font-size: 13px; color: var(--white); }
+.contact-form { background: rgba(10,10,10,0.7); border: 1px solid var(--border); border-radius: 6px; padding: 44px 40px; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 13px 16px; background: rgba(245,240,235,0.04); border: 1px solid rgba(232,101,10,0.18); border-radius: 4px; color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s, background 0.3s; -webkit-appearance: none; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--orange); background: rgba(232,101,10,0.07); }
+.form-group textarea { height: 110px; resize: vertical; }
+.form-group select option { background: #1a1a1a; }
+.btn-submit { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--orange), var(--orange-lt)); color: var(--black); border: none; border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; box-shadow: 0 8px 28px rgba(232,101,10,0.3); }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 38px rgba(232,101,10,0.5); }
+
+/* ===== FOOTER ===== */
+footer { background: var(--black); padding: 50px 60px 28px; border-top: 1px solid rgba(232,101,10,0.12); }
+.footer-grid { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 36px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo img { height: 48px; width: 48px; border-radius: 50%; object-fit: cover; }
+.footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+.footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,235,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--orange); }
+.footer-social { display: flex; gap: 10px; }
+.social-btn { width: 40px; height: 40px; background: rgba(232,101,10,0.08); border: 1px solid rgba(232,101,10,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.3s; cursor: pointer; }
+.social-btn:hover { background: var(--orange); border-color: var(--orange); }
+.footer-bottom { text-align: center; font-size: 12px; color: rgba(245,240,235,0.2); padding-top: 28px; border-top: 1px solid rgba(245,240,235,0.04); }
+.footer-bottom span { color: var(--cta); }
+
+/* WhatsApp floating button removed (integrated via chatbot/n8n) */
+
+/* ===== PÁGINA OBRIGADO ===== */
+#page-obrigado {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(8,8,8,0.97);
+  backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 40px;
+}
+
+#page-obrigado.show { display: flex; animation: fadeInUp 0.5s ease; }
+
+.obrigado-icon { font-size: 80px; margin-bottom: 24px; animation: bounceIn 0.6s ease 0.2s both; }
+
+@keyframes bounceIn {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.obrigado-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 80px);
+  letter-spacing: 3px;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.obrigado-title span { color: var(--orange); }
+
+.obrigado-text {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.obrigado-wpp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: var(--black);
+  padding: 16px 36px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 8px 28px rgba(37,211,102,0.3);
+  margin-bottom: 16px;
+}
+
+.obrigado-wpp:hover { transform: translateY(-3px); box-shadow: 0 14px 38px rgba(37,211,102,0.5); }
+
+.obrigado-voltar {
+  background: transparent;
+  border: 1px solid rgba(245,240,235,0.2);
+  color: var(--muted);
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: block;
+  margin-top: 8px;
+}
+
+.obrigado-voltar:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeInUp   { from{opacity:0;transform:translateY(32px)}  to{opacity:1;transform:translateY(0)} }
+.reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 1100px) {
+  #navbar { padding: 10px 30px; }
+  .hero-content { padding: 50px 30px 30px; gap: 40px; }
+  .section { padding: 80px 30px; }
+  .steps-wrapper { grid-template-columns: repeat(2,1fr); }
+  .steps-wrapper::before { display: none; }
+  .plans-grid { grid-template-columns: repeat(2,1fr); }
+  .testimonials { grid-template-columns: repeat(2,1fr); }
+  footer { padding: 40px 30px 24px; }
+  .carrossel-header { padding: 0 30px; }
+  .carrossel-track { padding: 10px 30px; }
+}
+
+@media (max-width: 820px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .trust-numbers { grid-template-columns: 1fr; }
+  .trust-num-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .trust-num-item:last-child { border-bottom: none; }
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links { display: none; position: absolute; top: 74px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: rgba(8,8,8,0.98); border-bottom: 1px solid var(--border); padding: 16px 30px 24px; gap: 0; }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid rgba(245,240,235,0.05); font-size: 13px; }
+  .btn-portal { margin-top: 14px; text-align: center; display: block; border-radius: 4px; }
+  .btn-portal::after { display: none !important; }
+}
+
+@media (max-width: 640px) {
+  .hero-title { font-size: 56px; }
+  .hero-right { display: none; }
+  .plans-grid { grid-template-columns: 1fr; }
+  .steps-wrapper { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .car-slide { flex: 0 0 260px; height: 170px; }
+  .footer-grid { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  .footer-social { justify-content: center; }
+  .contact-form { padding: 28px 20px; }
+  .clients-row { margin-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PÁGINA OBRIGADO (overlay) -->
+<div id="page-obrigado">
+  <div class="obrigado-icon">✅</div>
+  <h2 class="obrigado-title">MENSAGEM <span>ENVIADA!</span></h2>
+  <p class="obrigado-text">Recebemos seu contato! Nossa equipe entrará em contato em breve pelo WhatsApp. Enquanto isso, você pode nos chamar diretamente:</p>
+  <a class="obrigado-wpp" href="https://wa.me/5571982608738" target="_blank" rel="noopener">💬 Falar no WhatsApp Agora</a>
+  <button class="obrigado-voltar" onclick="fecharObrigado()">← Voltar ao site</button>
+</div>
+
+<!-- NAVBAR -->
+<header>
+  <nav id="navbar" role="navigation" aria-label="Menu principal">
+    <a href="#home" class="nav-logo">
+      <img src="TrackerMap_Rastreamento_.jpg" alt="Logo TrackerMap">
+      <span class="nav-logo-text">TRACKER<span>MAP</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#planos">Planos</a></li>
+      <li><a href="#quem-confia">Quem Confia</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contato">Contato</a></li>
+      <li><a href="https://wa.me/5571982608738" target="_blank" rel="noopener" class="btn-portal">🔐 Portal do Cliente</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-gradient"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge">🛰️ Rastreamento em Tempo Real</div>
+      <h1 class="hero-title">
+        <span class="t-orange">PROTEJA</span>
+        <span class="t-white">SEU VEÍCULO</span>
+        <span class="t-orange">24 HORAS</span>
+      </h1>
+      <p class="hero-sub">Tecnologia GPS com inteligência artificial para monitorar, proteger e controlar seus veículos de qualquer lugar do mundo.</p>
+      <div class="hero-ctas">
+        <a href="#planos" class="btn-primary">▸ Ver Planos</a>
+        <a href="#como-funciona" class="btn-outline">Como Funciona</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-card">
+        <div class="hero-stat-icon">🚗</div>
+        <div>
+          <div class="hero-stat-num">5.000+</div>
+          <div class="hero-stat-label">Veículos Rastreados</div>
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-icon">⏱️</div>
+        <div>
+          <div class="hero-stat-num">99,9%</div>
+          <div class="hero-stat-label">Uptime da Plataforma</div>
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-icon">🛡️</div>
+        <div>
+          <div class="hero-stat-num">24/7</div>
+          <div class="hero-stat-label">Monitoramento Ativo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARROSSEL -->
+<section id="carrossel">
+  <div class="carrossel-header reveal">
+    <p>Rastreamos todo tipo de veículo</p>
+    <h3>FROTA <span>COMPLETA</span> PROTEGIDA</h3>
+  </div>
+  <div class="carrossel-wrap">
+    <div class="carrossel-track" id="carrosselTrack">
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=700&q=80" alt="Carro passeio" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">Carro Passeio</div><div class="car-slide-sub">Proteção individual</div></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=700&q=80" alt="SUV" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">SUV / Caminhonete</div><div class="car-slide-sub">Segurança reforçada</div></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=700&q=80" alt="Caminhão" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">Caminhão</div><div class="car-slide-sub">Controle de carga</div></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Van" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">Van / Utilitário</div><div class="car-slide-sub">Frotas corporativas</div></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&q=80" alt="Frota" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">Frota Empresarial</div><div class="car-slide-sub">Gestão completa</div></div></div>
+      <div class="car-slide"><img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&q=80" alt="Pickup" loading="lazy"><div class="car-slide-info"><div class="car-slide-label">Pickup</div><div class="car-slide-sub">Rastreamento preciso</div></div></div>
+    </div>
+  </div>
+  <div class="carrossel-controls">
+    <button class="carr-btn" id="carrPrev">&#8592;</button>
+    <div class="carr-dots" id="carrDots"></div>
+    <button class="carr-btn" id="carrNext">&#8594;</button>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona" class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">Processo Simples</span>
+    <h2 class="section-title">COMO <span>FUNCIONA</span></h2>
+    <p class="section-desc">Em 4 passos simples, seu veículo está completamente protegido e monitorado.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="steps-wrapper">
+    <div class="step-card reveal"><div class="step-num">1</div><span class="step-icon">📋</span><div class="step-title">Escolha seu Plano</div><p class="step-desc">Selecione entre Easy, Premium, Smart ou Anual conforme sua necessidade e orçamento.</p></div>
+    <div class="step-card reveal" style="transition-delay:.12s"><div class="step-num">2</div><span class="step-icon">🔧</span><div class="step-title">Instalação Profissional</div><p class="step-desc">Nossa equipe técnica instala o rastreador no seu veículo com agilidade e segurança garantida.</p></div>
+    <div class="step-card reveal" style="transition-delay:.24s"><div class="step-num">3</div><span class="step-icon">📱</span><div class="step-title">Acesse a Plataforma</div><p class="step-desc">Monitore em tempo real pelo app ou web, disponível para Android e iOS, de qualquer lugar.</p></div>
+    <div class="step-card reveal" style="transition-delay:.36s"><div class="step-num">4</div><span class="step-icon">🛡️</span><div class="step-title">Proteção Total</div><p class="step-desc">Alertas instantâneos, histórico de rotas e controle total sobre seu veículo 24h por dia.</p></div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section id="planos" class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">Valores dos Planos</span>
+    <h2 class="section-title">QUAL A SUA <span>ESCOLHA?</span></h2>
+    <p class="section-desc">Planos flexíveis para proteger desde um veículo até toda a sua frota.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="plans-grid">
+    <div class="plan-card reveal">
+      <div class="plan-name">EASY</div>
+      <div class="plan-price"><span class="plan-currency">R$</span><span class="plan-amount">39</span><span class="plan-period">,90/mês</span></div>
+      <div class="plan-install">+ Instalação: R$ 170,00</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Equipamento vendido por <strong>R$ 249,90</strong></li>
+        <li>Garantia de <strong>6 meses</strong></li>
+        <li>Parcelamento: <strong>3x sem juros</strong> no cartão</li>
+        <li>Rastreamento GPS em tempo real</li>
+        <li>Acesso à plataforma TrackerMap</li>
+      </ul>
+      <button class="btn-plan" onclick="window.open('https://wa.me/5571982608738?text=Ol%C3%A1!%20Quero%20o%20Plano%20Easy', '_blank')">Contratar Agora</button>
+    </div>
+    <div class="plan-card featured reveal" style="transition-delay:.1s">
+      <span class="badge-popular">⭐ Popular</span>
+      <div class="plan-name">PREMIUM</div>
+      <div class="plan-price"><span class="plan-currency">R$</span><span class="plan-amount">49</span><span class="plan-period">,90/mês</span></div>
+      <div class="plan-install">+ Instalação: R$ 170,00</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Equipamento com <strong>garantia vitalícia</strong></li>
+        <li>Equipamento pertence à <strong>TrackerMap</strong></li>
+        <li><strong>Fidelidade Premiada:</strong> após 24 meses -R$10/mês e equip. passa a ser seu</li>
+        <li>Rastreamento GPS em tempo real</li>
+        <li>Acesso completo à plataforma</li>
+      </ul>
+      <button class="btn-plan" onclick="window.open('https://wa.me/5571982608738?text=Ol%C3%A1!%20Quero%20o%20Plano%20Premium', '_blank')">Contratar Agora</button>
+    </div>
+    <div class="plan-card reveal" style="transition-delay:.2s">
+      <div class="plan-name">SMART</div>
+      <div class="plan-price"><span class="plan-currency">R$</span><span class="plan-amount">59</span><span class="plan-period">,90/mês</span></div>
+      <div class="plan-install">+ Instalação: R$ 170,00</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Todos os benefícios do <strong>Plano Premium</strong></li>
+        <li>Tecnologia: <strong>Cerca Geográfica com IA</strong></li>
+        <li>Desligamento remoto <strong>automático</strong></li>
+        <li>Alertas inteligentes de zona</li>
+        <li>Controle remoto avançado</li>
+      </ul>
+      <button class="btn-plan" onclick="window.open('https://wa.me/5571982608738?text=Ol%C3%A1!%20Quero%20o%20Plano%20Smart', '_blank')">Contratar Agora</button>
+    </div>
+    <div class="plan-card reveal" style="transition-delay:.3s">
+      <div class="plan-name">ANUAL</div>
+      <div class="plan-price"><span class="plan-currency">R$</span><span class="plan-amount">69</span><span class="plan-period">,90/mês</span></div>
+      <div class="plan-install" style="color:#4CAF50;">✅ Instalação GRATUITA!</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Todos os benefícios do <strong>Plano Smart</strong></li>
+        <li>Pagamento anual: <strong>R$ 838,80</strong></li>
+        <li><strong>12x sem juros</strong> de R$ 69,90</li>
+        <li>Melhor custo-benefício</li>
+        <li>Instalação inclusa sem custo</li>
+      </ul>
+      <button class="btn-plan" onclick="window.open('https://wa.me/5571982608738?text=Ol%C3%A1!%20Quero%20o%20Plano%20Anual', '_blank')">Contratar Agora</button>
+    </div>
+  </div>
+  <p class="plan-obs reveal">* Nos Planos PREMIUM, SMART e ANUAL, com fidelidade premiada, quando o cliente obtém a redução de R$ 10,00 na mensalidade após 24 meses, a propriedade do equipamento é transferida a ele. A partir desse ponto, a manutenção do hardware passa a ser responsabilidade exclusiva do proprietário, e a mensalidade cobre apenas o serviço de conectividade e plataforma.</p>
+</section>
+
+<!-- QUEM CONFIA -->
+<section id="quem-confia" class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">Confiança e Credibilidade</span>
+    <h2 class="section-title">QUEM CONFIA <span>EM NÓS</span></h2>
+    <p class="section-desc">Empresas e motoristas de todo o Brasil protegem seus veículos com a TrackerMap.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="trust-numbers reveal">
+    <div class="trust-num-item"><span class="trust-num-value" data-target="5000" data-suffix="+">0+</span><div class="trust-num-label">Veículos Rastreados</div></div>
+    <div class="trust-num-item"><span class="trust-num-value" data-target="98" data-suffix="%">0%</span><div class="trust-num-label">Clientes Satisfeitos</div></div>
+    <div class="trust-num-item"><span class="trust-num-value" data-target="500" data-suffix="+">0+</span><div class="trust-num-label">Empresas Parceiras</div></div>
+  </div>
+  <div class="clients-row reveal">
+    <div class="client-chip">Transportes Silva</div>
+    <div class="client-chip">Frota Express</div>
+    <div class="client-chip">LogisBahia</div>
+    <div class="client-chip">Auto Seguro</div>
+    <div class="client-chip">Frotas & Cia</div>
+    <div class="client-chip">NordLog</div>
+    <div class="client-chip">Entrega Já</div>
+  </div>
+  <div class="testimonials">
+    <div class="testimonial reveal">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">Instalei o Smart na minha caminhonete e fiquei impressionado. A cerca geográfica com IA é incrível — quando o veículo saiu da área, recebi alerta imediato. Melhor investimento!</p>
+      <div class="testimonial-author"><div class="author-avatar">CR</div><div><div class="author-name">Carlos Rodrigues</div><div class="author-role">Empresário · Salvador, BA</div></div></div>
+    </div>
+    <div class="testimonial reveal" style="transition-delay:.12s">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">Tenho uma frota de 12 veículos e a TrackerMap resolveu tudo. Vejo todos em tempo real pela plataforma. Atendimento excelente, equipe muito profissional!</p>
+      <div class="testimonial-author"><div class="author-avatar">MS</div><div><div class="author-name">Mariana Santos</div><div class="author-role">Gestora de Frotas · Feira de Santana, BA</div></div></div>
+    </div>
+    <div class="testimonial reveal" style="transition-delay:.24s">
+      <div class="testimonial-quote">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">O plano Premium é o melhor custo-benefício. Garantia vitalícia no equipamento e após 24 meses ainda ganhei desconto na mensalidade. Indico para todo mundo!</p>
+      <div class="testimonial-author"><div class="author-avatar">JO</div><div><div class="author-name">José Oliveira</div><div class="author-role">Autônomo · Camaçari, BA</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section">
+  <div class="section-header reveal">
+    <span class="section-tag">Dúvidas Frequentes</span>
+    <h2 class="section-title">PERGUNTAS <span>FREQUENTES</span></h2>
+    <p class="section-desc">Respondemos as dúvidas mais comuns sobre o rastreamento TrackerMap.</p>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="faq-wrapper">
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Como funciona o rastreamento em tempo real?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>O rastreador instalado no veículo envia a localização via GPS a cada poucos segundos para nossa plataforma. Você acessa pelo app ou navegador e vê o veículo no mapa em tempo real, 24 horas por dia.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.06s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Qual a diferença entre o Plano Easy e o Premium?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>No Plano Easy você compra o equipamento (R$ 249,90) com garantia de 6 meses. No Plano Premium o equipamento pertence à TrackerMap com garantia vitalícia — você não compra, apenas paga a mensalidade. Após 24 meses de fidelidade, a mensalidade cai R$ 10,00 e o equipamento passa a ser seu.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.12s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">O que é a Cerca Geográfica com Inteligência Artificial?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Disponível nos Planos Smart e Anual, a Cerca Geográfica com IA permite que você defina uma área no mapa. Se o veículo sair dessa área, você recebe um alerta instantâneo e pode acionar o desligamento remoto automático, impedindo roubos ou uso indevido.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.18s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Quanto tempo leva a instalação do rastreador?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>A instalação é rápida e realizada por nossa equipe técnica especializada. Em média leva entre 1 e 2 horas, dependendo do tipo do veículo. Agendamos no horário mais conveniente para você.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.24s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Consigo monitorar mais de um veículo na mesma conta?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Sim! Nossa plataforma permite gerenciar múltiplos veículos em uma única conta. É ideal para empresas com frotas inteiras — você visualiza todos os veículos no mapa simultaneamente e acompanha rotas, paradas e histórico de cada um.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.30s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">Tem fidelidade? Posso cancelar quando quiser?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Os planos Premium, Smart e Anual possuem programa de Fidelidade Premiada — após 24 meses você ganha desconto na mensalidade e a propriedade do equipamento. O plano Easy não tem fidelidade obrigatória. Entre em contato pelo WhatsApp para saber mais sobre as condições de cancelamento.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.36s">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-question-text">O rastreador funciona em todo o Brasil?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Sim! O rastreamento funciona em todo o território nacional cobrindo as principais redes de telecomunicações do país. Seja na cidade ou em estradas, seu veículo está protegido e monitorado em tempo real.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="section">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <span class="section-tag">Fale Conosco</span>
+      <h2 class="section-title">ENTRE EM <span>CONTATO</span></h2>
+      <p>Estamos prontos para ajudar você a proteger seu veículo. Nossa equipe responde rapidamente pelo WhatsApp!</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text"><strong>(71) 98260-8738</strong><span>WhatsApp disponível</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text"><strong>Salvador, Bahia</strong><span>Atendemos em todo o Brasil</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div class="contact-item-text"><strong>Seg–Sex: 8h–18h | Sáb: 8h–12h</strong><span>Suporte emergencial 24/7</span></div>
+        </div>
+      </div>
+      <div class="app-badges">
+        <a href="#" class="app-badge"><span class="app-icon">🍎</span><span class="app-text"><small>Download na</small><strong>App Store</strong></span></a>
+        <a href="#" class="app-badge"><span class="app-icon">▶</span><span class="app-text"><small>Disponível no</small><strong>Google Play</strong></span></a>
+      </div>
+    </div>
+    <div class="contact-form reveal" style="transition-delay:.2s">
+      <div class="form-group">
+        <label for="nome">Seu Nome</label>
+        <input type="text" id="nome" placeholder="Como podemos te chamar?">
+      </div>
+      <div class="form-group">
+        <label for="tel">WhatsApp / Telefone</label>
+        <input type="tel" id="tel" placeholder="(71) 9 0000-0000" maxlength="16">
+      </div>
+      <div class="form-group">
+        <label for="plano">Plano de Interesse</label>
+        <select id="plano">
+          <option value="">Selecione um plano...</option>
+          <option>Easy — R$ 39,90/mês</option>
+          <option>Premium — R$ 49,90/mês</option>
+          <option>Smart — R$ 59,90/mês</option>
+          <option>Anual — R$ 69,90/mês</option>
+          <option>Dúvidas gerais</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="msg">Mensagem</label>
+        <textarea id="msg" placeholder="Conte mais sobre sua necessidade..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="enviarWpp()">📲 Enviar pelo WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <a href="#home" class="footer-logo">
+      <img src="TrackerMap_Rastreamento_.jpg" alt="Logo TrackerMap">
+      <span class="nav-logo-text">TRACKER<span>MAP</span></span>
+    </a>
+    <nav class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#como-funciona">Como Funciona</a>
+      <a href="#planos">Planos</a>
+      <a href="#quem-confia">Clientes</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="footer-social">
+      <a class="social-btn" href="#" title="Instagram">📷</a>
+      <a class="social-btn" href="https://wa.me/5571982608738" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+      <a class="social-btn" href="#" title="Facebook">👥</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 <span>TrackerMap</span> Rastreamento Veicular. Todos os direitos reservados.
+    &nbsp;|&nbsp; (71) 98260-8738 &nbsp;|&nbsp; Salvador, Bahia
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button removed per user request -->
+
+<script>
+/* --- NAVBAR --- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.style.background = window.scrollY > 60 ? 'rgba(8,8,8,0.99)' : 'rgba(8,8,8,0.95)';
+});
+
+/* --- HAMBURGER --- */
+const navToggle = document.getElementById('navToggle');
+const navMenu   = document.getElementById('navMenu');
+navToggle.addEventListener('click', () => {
+  const open = navMenu.classList.toggle('open');
+  navToggle.textContent = open ? '✕' : '☰';
+  navToggle.setAttribute('aria-expanded', open);
+});
+navMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('open');
+    navToggle.textContent = '☰';
+    navToggle.setAttribute('aria-expanded', false);
+  });
+});
+
+/* --- CARROSSEL --- */
+const track    = document.getElementById('carrosselTrack');
+const slides   = Array.from(track.querySelectorAll('.car-slide'));
+const dotsWrap = document.getElementById('carrDots');
+let current = 0, timer;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('button');
+  d.className = 'carr-dot' + (i === 0 ? ' active' : '');
+  d.setAttribute('aria-label', 'Slide ' + (i+1));
+  d.addEventListener('click', () => { goTo(i); resetTimer(); });
+  dotsWrap.appendChild(d);
+});
+
+function slideW() { return slides[0].offsetWidth + 20; }
+function visibleCount() { const w = window.innerWidth; return w < 640 ? 1 : w < 1100 ? 2 : 3; }
+
+function goTo(idx) {
+  const max = slides.length - visibleCount();
+  current = Math.max(0, Math.min(idx, max));
+  track.style.transform = `translateX(-${current * slideW()}px)`;
+  document.querySelectorAll('.carr-dot').forEach((d,i) => d.classList.toggle('active', i === current));
+}
+
+document.getElementById('carrNext').addEventListener('click', () => { goTo(current >= slides.length - visibleCount() ? 0 : current + 1); resetTimer(); });
+document.getElementById('carrPrev').addEventListener('click', () => { goTo(current <= 0 ? slides.length - visibleCount() : current - 1); resetTimer(); });
+
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => goTo(current >= slides.length - visibleCount() ? 0 : current + 1), 3500);
+}
+resetTimer();
+window.addEventListener('resize', () => goTo(current));
+
+/* --- FAQ --- */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* --- REVEAL --- */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* --- CONTADOR --- */
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    let n = 0;
+    const t = setInterval(() => {
+      n += target / 80;
+      if (n >= target) { n = target; clearInterval(t); }
+      el.textContent = Math.floor(n).toLocaleString('pt-BR') + suffix;
+    }, 20);
+    counterObs.unobserve(el);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.trust-num-value[data-target]').forEach(el => counterObs.observe(el));
+
+/* --- MÁSCARA TELEFONE --- */
+document.getElementById('tel').addEventListener('input', function(e) {
+  let v = e.target.value.replace(/\D/g, '').substring(0, 11);
+  if (v.length >= 11)      v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7,11)}`;
+  else if (v.length >= 7)  v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7)}`;
+  else if (v.length >= 3)  v = `(${v.substring(0,2)}) ${v.substring(2)}`;
+  else if (v.length >= 1)  v = `(${v}`;
+  e.target.value = v;
+});
+
+/* --- FORMULÁRIO → OBRIGADO --- */
+function enviarWpp() {
+  const nome  = document.getElementById('nome').value.trim();
+  const tel   = document.getElementById('tel').value.trim();
+  const plano = document.getElementById('plano').value;
+  const msg   = document.getElementById('msg').value.trim();
+  if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
+  let txt = `Olá, TrackerMap! 👋\n\n`;
+  if (nome)  txt += `*Nome:* ${nome}\n`;
+  if (tel)   txt += `*Telefone:* ${tel}\n`;
+  if (plano) txt += `*Interesse:* ${plano}\n`;
+  if (msg)   txt += `*Mensagem:* ${msg}\n`;
+  window.open(`https://wa.me/5571982608738?text=${encodeURIComponent(txt)}`, '_blank');
+  document.getElementById('page-obrigado').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharObrigado() {
+  document.getElementById('page-obrigado').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+/* --- SMOOTH SCROLL --- */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+
+<!-- CHATBOT WIDGET: canned responses + escalate to WhatsApp -->
+<div id="chatbot" aria-live="polite">
+  <button id="chatToggle" aria-label="Abrir chat" title="Chat TrackerMap">💬</button>
+  <div id="chatWindow" role="dialog" aria-modal="false" aria-hidden="true">
+    <header>
+      <strong>Assistente TrackerMap</strong>
+      <button id="chatClose" aria-label="Fechar chat">✕</button>
+    </header>
+    <div id="chatMessages" aria-live="polite"></div>
+    <div id="chatSuggestions"></div>
+    <form id="chatForm">
+      <input id="chatInput" type="text" placeholder="Escreva sua dúvida..." aria-label="Mensagem" autocomplete="off" />
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  #chatbot { position: fixed; right: 20px; bottom: 96px; z-index: 1200; font-family: 'Montserrat',sans-serif; }
+  #chatToggle { width:54px;height:54px;border-radius:50%;background:var(--cta);color:var(--black);border:none;box-shadow:0 8px 28px rgba(0,0,0,0.35);cursor:pointer }
+  #chatWindow { width:320px; max-width: calc(100vw - 48px); background:var(--surface); color:var(--text); border:1px solid var(--role-border); border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); overflow:hidden; margin-bottom:12px; display:none }
+  #chatWindow header{ display:flex; align-items:center; justify-content:space-between; padding:12px 14px; background:linear-gradient(90deg, rgba(0,0,0,0.12), transparent); font-weight:700 }
+  #chatMessages{ max-height:260px; overflow:auto; padding:12px; display:flex; flex-direction:column; gap:10px }
+  .chat-bubble{ padding:10px 12px; border-radius:10px; max-width:82%; box-shadow:0 6px 18px rgba(0,0,0,0.25) }
+  .bot{ background:linear-gradient(180deg, rgba(232,101,10,0.12), rgba(232,101,10,0.06)); color:var(--text); align-self:flex-start }
+  .user{ background:rgba(255,255,255,0.06); color:var(--text); align-self:flex-end }
+  #chatSuggestions{ padding: 0 12px 8px 12px; display:flex; gap:8px; flex-wrap:wrap }
+  .suggest{ background:transparent; border:1px solid var(--role-border); color:var(--text); padding:6px 10px; border-radius:16px; cursor:pointer }
+  #chatForm{ display:flex; gap:8px; padding:10px; border-top:1px solid rgba(255,255,255,0.03) }
+  #chatForm input{ flex:1; padding:10px 12px; border-radius:8px; border:1px solid var(--role-border); background:transparent; color:var(--text); }
+  #chatForm button{ background:var(--cta); color:var(--black); border:none; padding:10px 12px; border-radius:8px; font-weight:700 }
+</style>
+
+<script>
+(() => {
+  const toggle = document.getElementById('chatToggle');
+  const win = document.getElementById('chatWindow');
+  const closeBtn = document.getElementById('chatClose');
+  const messages = document.getElementById('chatMessages');
+  const form = document.getElementById('chatForm');
+  const input = document.getElementById('chatInput');
+  const suggestions = document.getElementById('chatSuggestions');
+
+  const WA = 'https://api.whatsapp.com/send?phone=5571982608738';
+
+  const canned = [
+    {q:['plano','planos','preço','valor'], a:'Temos planos EASY R$39,90, PREMIUM R$49,90, SMART R$59,90 e ANUAL R$69,90. Deseja contratar pelo WhatsApp?'},
+    {q:['instala','instalação','instalar'], a:'A instalação é feita por nossa equipe, em média 1–2 horas. Quer agendar via WhatsApp?'},
+    {q:['app','plataforma','acessar'], a:'Você acessa pela nossa plataforma web e app (Android/iOS). Precisa do link de download?'},
+    {q:['cerca','geográfica','ia'], a:'A Cerca Geográfica com IA envia alertas quando o veículo sair da área definida e pode acionar bloqueio remoto.'},
+    {q:['funciona','rastrea','rastreamento'], a:'O rastreador envia localização por GPS em tempo real; monitoramento 24/7.'}
+  ];
+
+  const addMsg = (text, who='bot') => {
+    const el = document.createElement('div'); el.className = 'chat-bubble ' + who; el.textContent = text; messages.appendChild(el); messages.scrollTop = messages.scrollHeight; }
+
+  const replyTo = (text) => {
+    const t = text.toLowerCase();
+    for (const c of canned) {
+      if (c.q.some(k => t.includes(k))) { return c.a; }
+    }
+    return null;
+  };
+
+  const addSuggestionButtons = () => {
+    const opts = ['Planos','Instalação','Como funciona','Falar com atendente'];
+    suggestions.innerHTML = '';
+    opts.forEach(o => { const b=document.createElement('button'); b.className='suggest'; b.textContent=o; b.addEventListener('click', ()=>{ handleUser(o); }); suggestions.appendChild(b); });
+  };
+
+  const handleUser = (text) => {
+    if (!text) return;
+    addMsg(text,'user');
+    const r = replyTo(text);
+    if (r) { setTimeout(()=> addMsg(r,'bot'), 300); }
+    else { setTimeout(()=> addMsg('Desculpe, não entendi. Quer falar com nosso atendimento pelo WhatsApp?', 'bot'), 300); }
+    // if user explicitly asks to talk to atendente or clicked the suggestion
+    if (/whatsapp|atendente|falar/i.test(text) || text === 'Falar com atendente') {
+      // prefer sending the last user message (if any) to provide context
+      const userBubbles = messages.querySelectorAll('.chat-bubble.user');
+      const lastUser = userBubbles.length ? userBubbles[userBubbles.length - 1].textContent : text;
+      const payloadMsg = 'Olá, TrackerMap! Gostaria de atendimento: ' + (lastUser || text);
+      const sep = WA.includes('?') ? '&' : '?';
+      setTimeout(()=> window.open(WA + sep + 'text=' + encodeURIComponent(payloadMsg), '_blank'), 600);
+    }
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = win.style.display !== 'block';
+    win.style.display = open ? 'block' : 'none';
+    win.setAttribute('aria-hidden', !open);
+    if (open) { addMsg('Olá! Eu sou o assistente TrackerMap. Como posso ajudar?'); addSuggestionButtons(); }
+  });
+  closeBtn.addEventListener('click', ()=>{ win.style.display='none'; win.setAttribute('aria-hidden','true'); });
+
+  form.addEventListener('submit', (e)=>{ e.preventDefault(); const v = input.value.trim(); if (!v) return; input.value=''; handleUser(v); });
+})();
+</script>
+</body>
+</html>
