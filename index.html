@@ -51,10 +51,15 @@
 </script>
 
 <script>
-/* --- REGISTER CUSTOMER (browser → Supabase using anon key) --- */
-// Substitua os placeholders abaixo pelos valores do seu projeto Supabase
+// Frontend: if you deploy as static HTML without server functions,
+// you can use the Supabase ANON key here (public). DO NOT put service_role here.
+// Replace the placeholders below with your project's values.
 const SUPABASE_URL = 'https://cgjzyenrzqnjzzseqici.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // replace with your current anon public key
+
+// If you prefer server-side (recommended), set USE_CLIENT_SUPABASE=false and
+// keep using /api/register and /api/leads which use the service_role key.
+const USE_CLIENT_SUPABASE = true;
 
 async function registerCustomer() {
   try {
@@ -65,29 +70,33 @@ async function registerCustomer() {
     const msg   = document.getElementById('c_msg').value.trim();
     if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
 
-    const payload = [{ name: nome, phone: tel, email: email || null, plan: plano || null, message: msg || null }];
-
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!r.ok) {
-      const t = await r.text();
-      console.warn('register failed', t);
-      alert('Ocorreu um erro ao registrar. Tentaremos novamente via WhatsApp.');
-      return;
+    const payload = { name: nome, phone: tel, email: email || null, plan: plano || null, message: msg || null, source_page: window.location.href };
+    let r;
+    if (USE_CLIENT_SUPABASE) {
+      // Direct POST to Supabase REST using anon key (public)
+      r = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify([payload])
+      });
+      if (!r.ok) console.warn('register failed', await r.text());
+    } else {
+      // Server-side endpoint (recommended)
+      r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!r.ok) console.warn('register failed', await r.text());
     }
 
-    // sucesso
-    await r.json();
-    alert('Cadastro recebido! Em breve entraremos em contato.');
+    // Open WhatsApp and clear form
+    const txt = `Olá, TrackerMap! 👋\n\n*Nome:* ${nome}\n*Telefone:* ${tel}${plano ? `\n*Interesse:* ${plano}` : ''}${msg ? `\n*Mensagem:* ${msg}` : ''}`;
+    window.open(`https://wa.me/5571982608738?text=${encodeURIComponent(txt)}`, '_blank');
+    document.getElementById('page-obrigado').classList.add('show');
+    document.body.style.overflow = 'hidden';
+
     document.getElementById('c_nome').value = '';
     document.getElementById('c_tel').value  = '';
     document.getElementById('c_email').value= '';
@@ -235,9 +244,9 @@ button { font-family: inherit; cursor: pointer; }
 .step-title { font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 10px; }
 .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-/* ===== PLANOS ===== */
-.#planos { background: linear-gradient(180deg, var(--dark) 0%, var(--brown) 50%, var(--dark) 100%); position: relative; overflow: hidden; }
-.#planos::before { content: 'PLANOS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 280px; color: rgba(255,255,255,0.025); letter-spacing: 20px; white-space: nowrap; pointer-events: none; user-select: none; }
+#/* ===== PLANOS ===== */
+#planos { background: linear-gradient(180deg, var(--dark) 0%, var(--brown) 50%, var(--dark) 100%); position: relative; overflow: hidden; }
+#planos::before { content: 'PLANOS'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 280px; color: rgba(255,255,255,0.025); letter-spacing: 20px; white-space: nowrap; pointer-events: none; user-select: none; }
 .plan-card { background: rgba(10,10,10,0.9); border: 1px solid var(--role-border); border-radius: 6px; padding: 36px 26px 32px; position: relative; transition: all 0.4s; overflow: hidden; }
 .plan-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brown-light), var(--cta)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
 .plan-card:hover::after, .plan-card.featured::after { transform: scaleX(1); }
@@ -1070,55 +1079,48 @@ const counterObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.trust-num-value[data-target]').forEach(el => counterObs.observe(el));
 
 /* --- MÁSCARA TELEFONE --- */
-document.getElementById('tel').addEventListener('input', function(e) {
-  let v = e.target.value.replace(/\D/g, '').substring(0, 11);
-  if (v.length >= 11)      v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7,11)}`;
-  else if (v.length >= 7)  v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7)}`;
-  else if (v.length >= 3)  v = `(${v.substring(0,2)}) ${v.substring(2)}`;
-  else if (v.length >= 1)  v = `(${v}`;
-  e.target.value = v;
-});
-
-/* --- FORMULÁRIO → OBRIGADO --- */
-function enviarWpp() {
-  const nome  = document.getElementById('nome').value.trim();
-  const tel   = document.getElementById('tel').value.trim();
-  const plano = document.getElementById('plano').value;
-  const msg   = document.getElementById('msg').value.trim();
-  if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
-  let txt = `Olá, TrackerMap! 👋\n\n`;
-  if (nome)  txt += `*Nome:* ${nome}\n`;
-  if (tel)   txt += `*Telefone:* ${tel}\n`;
-  if (plano) txt += `*Interesse:* ${plano}\n`;
-  if (msg)   txt += `*Mensagem:* ${msg}\n`;
-  window.open(`https://wa.me/5571982608738?text=${encodeURIComponent(txt)}`, '_blank');
-  document.getElementById('page-obrigado').classList.add('show');
-  document.body.style.overflow = 'hidden';
+function applyPhoneMaskTo(el) {
+  if (!el) return;
+  el.addEventListener('input', function(e) {
+    let v = e.target.value.replace(/\D/g, '').substring(0, 11);
+    if (v.length >= 11)      v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7,11)}`;
+    else if (v.length >= 7)  v = `(${v.substring(0,2)}) ${v.substring(2,7)}-${v.substring(7)}`;
+    else if (v.length >= 3)  v = `(${v.substring(0,2)}) ${v.substring(2)}`;
+    else if (v.length >= 1)  v = `(${v}`;
+    e.target.value = v;
+  });
 }
 
-/* --- SUBMIT LEAD (stores to Supabase and opens WhatsApp) --- */
+applyPhoneMaskTo(document.getElementById('tel'));
+applyPhoneMaskTo(document.getElementById('c_tel'));
+
+/* --- SUBMIT LEAD (send to serverless endpoint and opens WhatsApp) --- */
 async function submitLead() {
   const nome  = document.getElementById('nome').value.trim();
   const tel   = document.getElementById('tel').value.trim();
   const plano = document.getElementById('plano').value;
   const msg   = document.getElementById('msg').value.trim();
   if (!nome || !tel) { alert('Por favor, preencha seu nome e telefone.'); return; }
-
   const payload = { name: nome, phone: tel, plan: plano, message: msg, source_page: window.location.href };
 
   try {
-    // send directly to Supabase REST using anon key
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify([payload])
-    });
-    if (!r.ok) console.warn('lead save failed', await r.text());
+    let r;
+    if (USE_CLIENT_SUPABASE) {
+      r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify([payload])
+      });
+      if (!r.ok) console.warn('lead save failed', await r.text());
+    } else {
+      r = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      if (!r.ok) console.warn('lead save failed', await r.text());
+    }
   } catch (e) {
     console.warn('lead save error', e);
   }
