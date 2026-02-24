@@ -55,7 +55,7 @@
 // you can use the Supabase ANON key here (public). DO NOT put service_role here.
 // Replace the placeholders below with your project's values.
 const SUPABASE_URL = 'https://cgjzyenrzqnjzzseqici.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // replace with your current anon public key
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnanp5ZW5yenFuanp6c2VxaWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NzM1MzAsImV4cCI6MjA4NzQ0OTUzMH0.JMSUl7-TfD1Myc4UhNX6JQV11sTzP-5DKAiKkQPAmfk; // replace with your current anon public key
 
 // If you prefer server-side (recommended), set USE_CLIENT_SUPABASE=false and
 // keep using /api/register and /api/leads which use the service_role key.
@@ -75,7 +75,7 @@ async function registerCustomer() {
     if (USE_CLIENT_SUPABASE) {
       // Direct POST to Supabase REST using anon key (public)
       // this project uses Portuguese table names — post to 'clientes'
-      r = await fetch(`${SUPABASE_URL}/rest/v1/clientes`, {
+      r = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1108,7 +1108,7 @@ async function submitLead() {
     let r;
     if (USE_CLIENT_SUPABASE) {
       // this project uses Portuguese table names — post to 'pistas'
-      r = await fetch(`${SUPABASE_URL}/rest/v1/pistas`, {
+      r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
