@@ -74,7 +74,8 @@ async function registerCustomer() {
     let r;
     if (USE_CLIENT_SUPABASE) {
       // Direct POST to Supabase REST using anon key (public)
-      r = await fetch(`${SUPABASE_URL}/rest/v1/customers`, {
+      // this project uses Portuguese table names — post to 'clientes'
+      r = await fetch(`${SUPABASE_URL}/rest/v1/clientes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1106,7 +1107,8 @@ async function submitLead() {
   try {
     let r;
     if (USE_CLIENT_SUPABASE) {
-      r = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      // this project uses Portuguese table names — post to 'pistas'
+      r = await fetch(`${SUPABASE_URL}/rest/v1/pistas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
