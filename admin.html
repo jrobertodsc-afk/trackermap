@@ -536,8 +536,19 @@ function switchTab(tab, btn) {
   currentTab = tab;
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
-  document.getElementById('search-input').value = '';
-  renderTable();
+
+  if (tab === 'contratos') {
+    document.querySelector('.toolbar').style.display = 'none';
+    document.querySelector('.table-wrap').style.display = 'none';
+    document.getElementById('contratos-panel').style.display = 'block';
+    switchTabContratos();
+  } else {
+    document.querySelector('.toolbar').style.display = '';
+    document.querySelector('.table-wrap').style.display = '';
+    document.getElementById('contratos-panel').style.display = 'none';
+    document.getElementById('search-input').value = '';
+    renderTable();
+  }
 }
 
 /* ===== RENDER ===== */
@@ -678,7 +689,6 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close
 
 /* ===== CONTRATOS ===== */
 async function switchTabContratos() {
-  document.getElementById('table-loading').style.display = 'none';
   document.getElementById('data-table').style.display = 'none';
   document.getElementById('empty-state').style.display = 'none';
   document.getElementById('contratos-panel').style.display = 'block';
@@ -694,28 +704,7 @@ async function switchTabContratos() {
   popularSelectClientes();
 }
 
-function esconderContratos() {
-  document.getElementById('contratos-panel').style.display = 'none';
-}
 
-/* Override switchTab para suportar contratos */
-var _origSwitchTab = switchTab;
-switchTab = function(tab, btn) {
-  esconderContratos();
-  document.getElementById('toolbar-section') && (document.getElementById('toolbar-section').style.display = '');
-  if (tab === 'contratos') {
-    currentTab = 'contratos';
-    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-    btn.classList.add('active');
-    document.querySelector('.toolbar').style.display = 'none';
-    document.querySelector('.table-wrap').style.display = 'none';
-    switchTabContratos();
-  } else {
-    document.querySelector('.toolbar').style.display = '';
-    document.querySelector('.table-wrap').style.display = '';
-    _origSwitchTab(tab, btn);
-  }
-};
 
 function popularSelectClientes() {
   var clientes = window._customers || [];
