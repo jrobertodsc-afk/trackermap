@@ -677,12 +677,20 @@ function exportCSV() {
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
 /* ===== CONTRATOS ===== */
-function switchTabContratos() {
+async function switchTabContratos() {
   document.getElementById('table-loading').style.display = 'none';
   document.getElementById('data-table').style.display = 'none';
   document.getElementById('empty-state').style.display = 'none';
-  document.getElementById('toolbar-wrap') && (document.getElementById('toolbar-wrap').style.display = 'none');
   document.getElementById('contratos-panel').style.display = 'block';
+
+  /* Se ainda não carregou, busca agora */
+  if (!window._customers || !window._customers.length) {
+    document.getElementById('ct-search').placeholder = 'Carregando clientes...';
+    try {
+      window._customers = await fetchTable('customers');
+    } catch(e) { console.error(e); }
+    document.getElementById('ct-search').placeholder = 'Digite o nome ou telefone...';
+  }
   popularSelectClientes();
 }
 
