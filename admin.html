@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TrackerMap — Admin</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -261,6 +263,7 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
     <div class="tabs">
       <button class="tab active" onclick="switchTab('customers',this)">Clientes (Cadastro)</button>
       <button class="tab" onclick="switchTab('leads',this)">Leads (Contato)</button>
+      <button class="tab" onclick="switchTab('contratos',this)">📄 Gerar Contrato</button>
     </div>
 
     <!-- TOOLBAR -->
@@ -292,6 +295,136 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
     </div>
   </div>
 
+  <!-- PAINEL CONTRATOS -->
+  <div id="contratos-panel" style="display:none">
+    <div class="toolbar" style="margin-bottom:20px">
+      <div style="color:var(--muted);font-size:12px;letter-spacing:1px">Selecione um cliente cadastrado e preencha os dados da instalação para gerar o contrato em PDF.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+      <!-- COLUNA 1: SELEÇÃO DO CLIENTE -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">1. Dados do Cliente</div>
+
+        <div style="margin-bottom:14px">
+          <label style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Buscar Cliente</label>
+          <input type="text" id="ct-search" placeholder="Digite o nome ou telefone..." oninput="filterClientes()" style="width:100%;padding:10px 14px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;outline:none">
+        </div>
+        <select id="ct-cliente" size="6" style="width:100%;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;padding:8px;outline:none;margin-bottom:16px" onchange="preencherCliente()">
+          <option value="">Carregando clientes...</option>
+        </select>
+
+        <!-- Dados preenchidos automaticamente -->
+        <div id="ct-dados-cliente" style="display:none">
+          <div style="background:rgba(232,101,10,0.06);border:1px solid var(--border);border-radius:6px;padding:16px;font-size:12px;line-height:1.8">
+            <div><span style="color:var(--muted)">Nome:</span> <span id="ct-nome" style="color:var(--white);font-weight:600"></span></div>
+            <div><span style="color:var(--muted)">CPF:</span> <span id="ct-cpf"></span></div>
+            <div><span style="color:var(--muted)">Telefone:</span> <span id="ct-tel"></span></div>
+            <div><span style="color:var(--muted)">Email:</span> <span id="ct-email"></span></div>
+            <div><span style="color:var(--muted)">Endereço:</span> <span id="ct-end"></span></div>
+            <div><span style="color:var(--muted)">Plano:</span> <span id="ct-plano" style="color:var(--orange);font-weight:700"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA 2: DADOS DA INSTALAÇÃO -->
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
+        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">2. Dados da Instalação</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Marca do Veículo</label>
+            <input type="text" id="ct-marca" placeholder="Ex: CHEVROLET" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Modelo / Ano</label>
+            <input type="text" id="ct-modelo" placeholder="Ex: PRISMA 2016/2017" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Cor</label>
+            <input type="text" id="ct-cor" placeholder="Ex: PRATA" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Placa</label>
+            <input type="text" id="ct-placa" placeholder="Ex: ABC1D23" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">IMEI</label>
+            <input type="text" id="ct-imei" placeholder="Ex: 355139081413947" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">CHIP</label>
+            <input type="text" id="ct-chip" placeholder="Ex: 16989080923" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">ICCID</label>
+            <input type="text" id="ct-iccid" placeholder="Ex: 4901" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Nº Equipamento</label>
+            <input type="text" id="ct-nequip" placeholder="Ex: trackermap-vt05" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Endereço Instalação</label>
+            <input type="text" id="ct-endinstal" placeholder="Ex: VAN SOM" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Usuário Plataforma</label>
+            <input type="text" id="ct-usuario" placeholder="Ex: 8881431505" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Senha Plataforma</label>
+            <input type="text" id="ct-senha" placeholder="Ex: 123456" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Equipamento</label>
+            <input type="text" id="ct-valequip" placeholder="Ex: R$ 249,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Instalação</label>
+            <input type="text" id="ct-valinstal" placeholder="Ex: R$ 150,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Dia Vencimento</label>
+            <input type="text" id="ct-venc" placeholder="Ex: 22" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Autoriza Bloqueio</label>
+            <select id="ct-bloqueio" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+              <option value="SIM">SIM</option>
+              <option value="NAO">NÃO</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Forma de Pagamento</label>
+            <select id="ct-pagamento" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+              <option value="Cartão">Cartão</option>
+              <option value="À vista">À vista</option>
+              <option value="Pix">Pix</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Periodicidade</label>
+            <select id="ct-periodo" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+              <option value="Anual">Anual</option>
+              <option value="Mensal">Mensal</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">OBS</label>
+            <input type="text" id="ct-obs" placeholder="Observações (opcional)" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
+          </div>
+        </div>
+
+        <!-- BOTÃO GERAR -->
+        <button onclick="gerarContrato()" style="width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#E8650A,#FF8C2A);color:#080808;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 28px rgba(232,101,10,0.35)">
+          📄 Gerar Contrato PDF
+        </button>
+        <div id="ct-status" style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="admin-footer">TrackerMap Admin &copy; 2025 — Painel interno</div>
 </div>
 
@@ -308,7 +441,7 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
 <script>
 /* ===== CONFIG ===== */
 var SUPABASE_URL  = 'https://cgjzyenrzqnjzzseqici.supabase.co';
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnanp5ZW5yenFuanp6c2VxaWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NzM1MzAsImV4cCI6MjA4NzQ0OTUzMH0.JMSUl7-TfD1Myc4UhNX6JQV11sTzP-5DKAiKkQPAmfk';
+var SUPABASE_ANON_KEY = 'COLE_SUA_CHAVE_ANON_AQUI';
 var ADMIN_PASS = 'trackermap2025'; /* TROQUE ESTA SENHA */
 
 /* ===== STATE ===== */
@@ -542,6 +675,326 @@ function exportCSV() {
 
 /* ESC fecha modal */
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+/* ===== CONTRATOS ===== */
+function switchTabContratos() {
+  document.getElementById('table-loading').style.display = 'none';
+  document.getElementById('data-table').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('toolbar-wrap') && (document.getElementById('toolbar-wrap').style.display = 'none');
+  document.getElementById('contratos-panel').style.display = 'block';
+  popularSelectClientes();
+}
+
+function esconderContratos() {
+  document.getElementById('contratos-panel').style.display = 'none';
+}
+
+/* Override switchTab para suportar contratos */
+var _origSwitchTab = switchTab;
+switchTab = function(tab, btn) {
+  esconderContratos();
+  document.getElementById('toolbar-section') && (document.getElementById('toolbar-section').style.display = '');
+  if (tab === 'contratos') {
+    currentTab = 'contratos';
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelector('.toolbar').style.display = 'none';
+    document.querySelector('.table-wrap').style.display = 'none';
+    switchTabContratos();
+  } else {
+    document.querySelector('.toolbar').style.display = '';
+    document.querySelector('.table-wrap').style.display = '';
+    _origSwitchTab(tab, btn);
+  }
+};
+
+function popularSelectClientes() {
+  var clientes = window._customers || [];
+  var select = document.getElementById('ct-cliente');
+  var search = (document.getElementById('ct-search').value || '').toLowerCase();
+  select.innerHTML = '';
+  var filtrados = clientes.filter(function(c) {
+    return !search || (c.name && c.name.toLowerCase().includes(search)) || (c.phone && c.phone.includes(search));
+  });
+  if (!filtrados.length) {
+    select.innerHTML = '<option value="">Nenhum cliente encontrado</option>';
+    return;
+  }
+  filtrados.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = (c.name || 'Sem nome') + ' — ' + (c.phone || '');
+    opt.dataset.json = JSON.stringify(c);
+    select.appendChild(opt);
+  });
+}
+
+function filterClientes() { popularSelectClientes(); }
+
+function preencherCliente() {
+  var select = document.getElementById('ct-cliente');
+  var opt = select.options[select.selectedIndex];
+  if (!opt || !opt.dataset.json) return;
+  var c = JSON.parse(opt.dataset.json);
+  document.getElementById('ct-dados-cliente').style.display = 'block';
+  document.getElementById('ct-nome').textContent  = c.name  || '';
+  document.getElementById('ct-cpf').textContent   = c.cpf   || '';
+  document.getElementById('ct-tel').textContent   = c.phone || '';
+  document.getElementById('ct-email').textContent = c.email || '';
+  document.getElementById('ct-end').textContent   = (c.address || '') + (c.neighborhood ? ', ' + c.neighborhood : '');
+  document.getElementById('ct-plano').textContent = c.plan  || '';
+  /* preenche placa automaticamente se vier do cadastro */
+  if (c.plate) document.getElementById('ct-placa').value = c.plate;
+}
+
+/* ===== GERAR PDF ===== */
+function gerarContrato() {
+  var select = document.getElementById('ct-cliente');
+  var opt = select.options[select.selectedIndex];
+  if (!opt || !opt.dataset.json) { alert('Selecione um cliente!'); return; }
+  var c = JSON.parse(opt.dataset.json);
+
+  var inst = {
+    marca:    document.getElementById('ct-marca').value.toUpperCase(),
+    modelo:   document.getElementById('ct-modelo').value.toUpperCase(),
+    cor:      document.getElementById('ct-cor').value.toUpperCase(),
+    placa:    document.getElementById('ct-placa').value.toUpperCase(),
+    imei:     document.getElementById('ct-imei').value,
+    chip:     document.getElementById('ct-chip').value,
+    iccid:    document.getElementById('ct-iccid').value,
+    nequip:   document.getElementById('ct-nequip').value,
+    endinstal:document.getElementById('ct-endinstal').value,
+    usuario:  document.getElementById('ct-usuario').value,
+    senha:    document.getElementById('ct-senha').value,
+    valequip: document.getElementById('ct-valequip').value,
+    valinstal:document.getElementById('ct-valinstal').value,
+    venc:     document.getElementById('ct-venc').value,
+    bloqueio: document.getElementById('ct-bloqueio').value,
+    pagamento:document.getElementById('ct-pagamento').value,
+    periodo:  document.getElementById('ct-periodo').value,
+    obs:      document.getElementById('ct-obs').value
+  };
+
+  document.getElementById('ct-status').textContent = 'Gerando PDF...';
+
+  try {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    var pw = 210; /* largura A4 */
+    var ml = 15; /* margem esquerda */
+    var mr = 15; /* margem direita */
+    var cw = pw - ml - mr; /* largura útil */
+    var y = 15;
+
+    /* ---- FUNÇÕES AUXILIARES ---- */
+    function addTitle(txt) {
+      doc.setFillColor(232, 101, 10);
+      doc.rect(ml, y, cw, 7, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(255,255,255);
+      doc.text(txt, pw/2, y+5, {align:'center'});
+      doc.setTextColor(0,0,0);
+      y += 10;
+    }
+
+    function addSection(titulo) {
+      doc.setFillColor(245, 245, 245);
+      doc.rect(ml, y, cw, 6, 'F');
+      doc.setDrawColor(200,200,200);
+      doc.rect(ml, y, cw, 6, 'S');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(60,60,60);
+      doc.text(titulo, pw/2, y+4.2, {align:'center'});
+      doc.setTextColor(0,0,0);
+      y += 8;
+    }
+
+    function addRow(cols) {
+      var rowH = 7;
+      var colW = cw / cols.length;
+      doc.setDrawColor(200,200,200);
+      cols.forEach(function(col, i) {
+        var x = ml + i * colW;
+        doc.rect(x, y, colW, rowH, 'S');
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(100,100,100);
+        doc.text(col.label, x+2, y+2.8);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(20,20,20);
+        doc.text(col.value || '', x+2, y+5.8);
+      });
+      y += rowH;
+    }
+
+    function addText(txt, bold, size) {
+      doc.setFont('helvetica', bold ? 'bold' : 'normal');
+      doc.setFontSize(size || 8);
+      doc.setTextColor(40,40,40);
+      var lines = doc.splitTextToSize(txt, cw);
+      lines.forEach(function(line) {
+        if (y > 270) { doc.addPage(); y = 15; }
+        doc.text(line, ml, y);
+        y += 4.5;
+      });
+    }
+
+    function space(h) { y += h || 4; }
+
+    function checkPage(needed) {
+      if (y + needed > 275) { doc.addPage(); y = 15; }
+    }
+
+    /* ===== CABEÇALHO ===== */
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(13);
+    doc.setTextColor(232,101,10);
+    doc.text('TRACKERMAP', pw/2, y+4, {align:'center'});
+    doc.setFontSize(7);
+    doc.setTextColor(120,120,120);
+    doc.text('GESTÃO DE FROTA — TELEMETRIA VEICULAR', pw/2, y+9, {align:'center'});
+    y += 14;
+
+    addTitle('TERMO DE PRESTAÇÃO DE SERVIÇOS DE RASTREAMENTO VEICULAR E COMODATO DE EQUIPAMENTOS');
+
+    /* PRESTADOR */
+    addSection('PRESTADOR DE SERVIÇOS CONTRATADO');
+    doc.setFillColor(255,255,255);
+    doc.rect(ml, y, cw, 8, 'FD');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(8);
+    doc.setTextColor(30,30,30);
+    doc.text('ROGÉRIO BORGES ASSUNÇÃO, INSCRITO NO CPF: 045.340.485-56, ÓRGÃO EMISSOR SSP-BA, RESIDENTE NA CIDADE DE SALVADOR-BA.', ml+2, y+5.5, {maxWidth: cw-4});
+    y += 10; space(2);
+
+    /* DADOS DO CLIENTE */
+    addSection('DADOS DO CLIENTE CONTRATANTE');
+    addRow([{label:'NOME/RAZÃO SOCIAL:', value: (c.name||'').toUpperCase()}, {label:'E-MAIL:', value: c.email||''}]);
+    addRow([{label:'CPF/CNPJ:', value: c.cpf||''}, {label:'DATA NASCIMENTO:', value: c.birthday||''}, {label:'TEL.:', value: c.phone||''}, {label:'WHATSAPP:', value: c.phone||''}]);
+    addRow([{label:'LOGRADOURO:', value: c.address||''}]);
+    addRow([{label:'BAIRRO:', value: c.neighborhood||''}, {label:'CIDADE:', value: 'Salvador'}, {label:'UF:', value: 'BA'}, {label:'CEP:', value: c.zipcode||''}]);
+    space(3);
+
+    /* DADOS DO VEÍCULO */
+    addSection('DADOS DOS VEÍCULOS RASTREADOS');
+    addRow([{label:'MARCA:', value: inst.marca}, {label:'MOD. / ANO:', value: inst.modelo}, {label:'COR:', value: inst.cor}, {label:'PLACA:', value: inst.placa}]);
+    space(3);
+
+    /* DADOS INSTALAÇÃO */
+    addSection('DADOS PARA INSTALAÇÃO');
+    addRow([{label:'ENDEREÇO DA INSTALAÇÃO:', value: inst.endinstal}]);
+    addRow([{label:'AUTORIZA BLOQUEIO:', value: '( ' + (inst.bloqueio==='SIM'?'X':' ') + ' ) SIM, concordo com item 4.10 do Contrato.   ( ' + (inst.bloqueio!=='SIM'?'X':' ') + ' ) NÃO.'}]);
+    addRow([{label:'USUÁRIO:', value: inst.usuario}, {label:'SENHA:', value: inst.senha}]);
+    if (inst.obs) addRow([{label:'OBS:', value: inst.obs}]);
+    space(3);
+
+    /* TABELA EQUIPAMENTOS */
+    addSection('TABELA I - Relação dos Equipamentos de Rastreamento Comodatos');
+    addRow([{label:'N:', value: '001'}, {label:'IMEI:', value: inst.imei}, {label:'CHIP:', value: inst.chip}, {label:'ICCID:', value: inst.iccid}]);
+    addRow([{label:'VALOR DO EQUIPAMENTO:', value: inst.valequip}, {label:'VALOR POR EXTENSO:', value: ''}]);
+    space(5);
+
+    /* PÁGINA 2 - ANEXO II */
+    checkPage(80);
+    space(4);
+    addTitle('ANEXO II — VALORES DE INSTALAÇÃO / DESINSTALAÇÃO');
+
+    var hoje = new Date();
+    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+    var dataHoje = hoje.getDate() + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+
+    addRow([{label:'DATA DA ADESÃO:', value: dataHoje}, {label:'VALOR(R$):', value: inst.valinstal}]);
+    space(2);
+
+    addSection('VALOR DO SERVIÇO DE RASTREAMENTO');
+
+    /* Determina valor pelo plano */
+    var plano = (c.plan || '').toLowerCase();
+    var valMensal = 'R$ 49,90';
+    if (plano.includes('easy'))    valMensal = 'R$ 39,90';
+    if (plano.includes('smart'))   valMensal = 'R$ 59,90';
+    if (plano.includes('anual'))   valMensal = 'R$ 69,90';
+
+    addRow([{label:'DIA DE VENCIMENTO:', value: inst.venc}, {label:'VALOR(R$):', value: valMensal}]);
+    addRow([{label:'Periodicidade:', value: '( ' + (inst.periodo==='Anual'?' ':'X') + ' ) Mensal – Assinatura;   ( ' + (inst.periodo==='Anual'?'X':' ') + ' ) Anual.'}]);
+    addRow([{label:'Forma de Pagamento:', value: '( ' + (inst.pagamento==='Cartão'?'X':' ') + ' ) Cartão;   ( ' + (inst.pagamento==='À vista'?'X':' ') + ' ) À vista'}]);
+    space(3);
+
+    /* OBS pagamento */
+    doc.setFillColor(255,255,255);
+    doc.rect(ml, y, cw, 28, 'FD');
+    doc.setDrawColor(200,200,200);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(40,40,40);
+    var obsText = 'OBS: Declara o cliente estar ciente de que o pagamento do plano de rastreamento veicular, será contratado de forma anual, no valor de R$ 480,00 (quatrocentos e oitenta reais), sendo parcelado em até 12 (doze) vezes sem juros no cartão de crédito. Em caso de falha ou cancelamento do pagamento junto à operadora do cartão, o cliente terá o prazo de 48 (quarenta e oito) horas para cadastrar um novo cartão ou efetuar o pagamento via Pix. Não sendo regularizada a situação dentro do prazo estabelecido, o cliente terá o seu acesso suspenso. Persistindo o atraso por mais de 7 (sete) dias, o cliente tem ciência de que os serviços contratados serão cancelados e bloqueados, incluindo o bloqueio do veículo rastreado. O retorno à prestação de serviço será realizado mediante a regularização do pagamento, acrescido da taxa de R$ 150,00 (cento e cinquenta reais) para reativação dos serviços contratados.';
+    var obsLines = doc.splitTextToSize(obsText, cw-4);
+    obsLines.forEach(function(l, i){ doc.text(l, ml+2, y+4+(i*3.8)); });
+    y += 30; space(3);
+
+    /* CONDIÇÕES GERAIS */
+    addSection('CONDIÇÕES GERAIS');
+    doc.setFillColor(255,255,255);
+    doc.rect(ml, y, cw, 14, 'FD');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(40,40,40);
+    var cgText = 'Este Termo tem por objetivo a adesão do CLIENTE ao Contrato Prestação de Serviços de Rastreamento Veicular e Comodato de Equipamentos, o que declara ter recebido uma cópia, lido, compreendido e aceito, assumido todas as obrigações constantes do Contrato.';
+    doc.splitTextToSize(cgText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
+    y += 16; space(2);
+
+    /* LOCAÇÃO E ASSINATURAS */
+    addSection('LOCAÇÃO E ASSINATURAS');
+    doc.setFillColor(255,255,255);
+    doc.rect(ml, y, cw, 18, 'FD');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    var loText = 'Declara o CLIENTE que recebeu nesta data, os equipamentos, em COMODATO, os bens descritos na TABELA I, em perfeitas condições de uso e instaladas no veículo indicado, comprometendo-se a restituí-los nas mesmas condições de uso e conservação em que se encontram nesta data, sob pena de, assim não fazendo, indenizar a CONTRATADA no valor de mercado de cada bem indicado na mesma TABELA I. E por estarem de acordo com as obrigações acima estipuladas, as partes firmam o presente termo.';
+    doc.splitTextToSize(loText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
+    y += 20; space(2);
+
+    /* ACEITE */
+    addSection('CONTRATANTE OU REPRESENTANTE LEGAL DA CONTRATANTE');
+    doc.setFillColor(255,255,255);
+    doc.rect(ml, y, cw, 16, 'FD');
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    var acText = 'Aceito integralmente, sem qualquer condição, ressalva ou restrição, assumir inteira responsabilidade pela veracidade das informações por mim fornecidas, reconhecendo que a minha confirmação reflete adesão às mencionadas condições gerais, valendo juridicamente como autorização de fornecimento dos serviços.';
+    doc.splitTextToSize(acText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
+    y += 18; space(4);
+
+    /* ASSINATURA */
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(9);
+    doc.setTextColor(30,30,30);
+    var anoAtual = hoje.getFullYear();
+    doc.text('Salvador, _______ de __________________________ de ' + anoAtual + '.', ml, y);
+    y += 12;
+    doc.text('Assinatura: ', ml, y);
+    doc.line(ml+22, y, ml+120, y);
+    y += 16;
+
+    /* RODAPÉ */
+    doc.setFont('helvetica','italic');
+    doc.setFontSize(7);
+    doc.setTextColor(150,150,150);
+    doc.text('TrackerMap — contato@trackermap.app.br — Salvador, BA', pw/2, 287, {align:'center'});
+
+    /* SALVAR */
+    var nomeArq = 'Termo_' + (c.name||'cliente').replace(/\s+/g,'_') + '_' + dataHoje.replace(/\//g,'-') + '.pdf';
+    doc.save(nomeArq);
+    document.getElementById('ct-status').innerHTML = '<span style="color:#4CAF50">✅ PDF gerado: ' + nomeArq + '</span>';
+
+  } catch(e) {
+    console.error(e);
+    document.getElementById('ct-status').innerHTML = '<span style="color:#E53935">❌ Erro ao gerar PDF: ' + e.message + '</span>';
+  }
+}
 </script>
 </body>
 </html>
