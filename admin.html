@@ -969,15 +969,20 @@ async function carregarAssinaturas() {
 
       var valor = 'R$ ' + parseFloat(sub.value).toFixed(2).replace('.',',');
 
+      var nomeCliente = sub.customerName || sub.externalReference || '—';
+      var cpfCliente  = sub.customerCpfCnpj ? ' · CPF: ' + sub.customerCpfCnpj : '';
+      var vencimento  = sub.nextDueDate ? ' · Próx: ' + sub.nextDueDate.split('-').reverse().join('/') : '';
+
       html += '<tr>' +
         '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07);font-size:12px">' +
-          '<div style="font-weight:600;margin-bottom:2px">' + (sub.customer?.name || sub.externalReference || '—') + '</div>' +
-          '<div style="color:var(--muted);font-size:10px">' + (sub.description||'') + '</div>' +
+          '<div style="font-weight:600;margin-bottom:3px;color:var(--white)">' + nomeCliente + '</div>' +
+          '<div style="color:var(--muted);font-size:10px">' + (sub.description||'') + cpfCliente + '</div>' +
+          '<div style="color:var(--muted);font-size:10px;font-family:monospace">' + sub.id + vencimento + '</div>' +
         '</td>' +
         '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07);color:var(--orange);font-weight:700;font-size:12px">' + valor + '</td>' +
         '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07)">' + statusBadge + '</td>' +
         '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07)">' +
-          '<button onclick="cancelarAssinatura(\'' + sub.id + '\')" style="background:transparent;border:1px solid rgba(229,57,53,0.4);color:#E53935;padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background=\'rgba(229,57,53,0.1)\'" onmouseout="this.style.background=\'transparent\'">🗑 Cancelar</button>' +
+          '<button onclick="cancelarAssinatura(\'' + sub.id + '\', \'' + nomeCliente + '\')" style="background:transparent;border:1px solid rgba(229,57,53,0.4);color:#E53935;padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background=\'rgba(229,57,53,0.1)\'" onmouseout="this.style.background=\'transparent\'">🗑 Cancelar</button>' +
         '</td>' +
         '</tr>';
     });
@@ -993,8 +998,8 @@ async function carregarAssinaturas() {
   }
 }
 
-async function cancelarAssinatura(id) {
-  if (!confirm('Tem certeza que deseja cancelar esta assinatura?')) return;
+async function cancelarAssinatura(id, nome) {
+  if (!confirm('⚠️ Cancelar assinatura de:\n\n' + (nome||id) + '\n\nEsta ação não pode ser desfeita. Confirma?')) return;
   try {
     var res  = await fetch(API_BASE + '/asaas?action=cancel-subscription', {
       method: 'POST',

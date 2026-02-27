@@ -91,6 +91,21 @@ module.exports = async (req, res) => {
     // ── LISTAR ASSINATURAS ──────────────────────────────────────────────────
     if (action === 'list-subscriptions' && req.method === 'GET') {
       const data = await asaasRequest('GET', '/subscriptions?limit=50');
+
+      // Busca nome e CPF de cada cliente em paralelo
+      if (data.data && data.data.length > 0) {
+        await Promise.all(data.data.map(async (sub) => {
+          try {
+            const customer = await asaasRequest('GET', `/customers/${sub.customer}`);
+            sub.customerName      = customer.name      || '—';
+            sub.customerCpfCnpj   = customer.cpfCnpj   || '';
+            sub.customerEmail     = customer.email      || '';
+          } catch(e) {
+            sub.customerName = sub.externalReference || '—';
+          }
+        }));
+      }
+
       return res.status(200).json(data);
     }
 
