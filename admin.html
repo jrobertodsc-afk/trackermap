@@ -94,7 +94,7 @@ body { font-family:'Montserrat',sans-serif; background:var(--bg); color:var(--wh
 .stat-sub { font-size:11px; color:var(--muted); margin-top:6px; }
 
 /* TABS */
-.tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+.tabs { display:flex; gap:4px; margin-bottom:28px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
 .tab {
   padding:12px 28px; font-size:11px; font-weight:700; letter-spacing:2px;
   text-transform:uppercase; color:var(--muted); background:transparent;
@@ -155,6 +155,9 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
 .badge-smart   { background:rgba(33,150,243,0.15); color:#2196F3; }
 .badge-anual   { background:rgba(156,39,176,0.15); color:#9C27B0; }
 .badge-other   { background:rgba(245,240,235,0.08); color:var(--muted); }
+.badge-ativo   { background:rgba(76,175,80,0.15);  color:#4CAF50; }
+.badge-inativo { background:rgba(229,57,53,0.15);  color:#E53935; }
+.badge-pendente{ background:rgba(255,193,7,0.15);  color:#FFC107; }
 .wa-link {
   display:inline-flex; align-items:center; gap:5px;
   background:#25D366; color:#080808; padding:5px 12px; border-radius:20px;
@@ -201,6 +204,82 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
 .modal-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
 .modal-value { font-size:14px; color:var(--white); }
 
+/* ---- ASAAS PANEL ---- */
+#asaas-panel { display:none; }
+.asaas-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.asaas-card {
+  background:var(--card); border:1px solid var(--border); border-radius:8px; padding:28px;
+}
+.asaas-card-title {
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--orange); margin-bottom:20px; font-weight:700;
+}
+.form-field { margin-bottom:14px; }
+.form-field label {
+  display:block; font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--muted); margin-bottom:6px;
+}
+.form-field input, .form-field select {
+  width:100%; padding:10px 14px; background:rgba(245,240,235,0.05);
+  border:1px solid var(--border); border-radius:6px; color:var(--white);
+  font-family:'Montserrat',sans-serif; font-size:13px; outline:none;
+  transition:border-color 0.3s;
+}
+.form-field input:focus, .form-field select:focus { border-color:var(--orange); }
+.form-field select option { background:var(--dark); }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.btn-primary {
+  width:100%; padding:14px; background:linear-gradient(135deg,var(--orange),var(--orange-lt));
+  color:#080808; border:none; border-radius:6px; font-family:'Montserrat',sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  cursor:pointer; transition:all 0.3s; box-shadow:0 8px 28px rgba(232,101,10,0.3);
+  margin-top:8px; display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 14px 38px rgba(232,101,10,0.5); }
+.btn-primary:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+.btn-secondary {
+  padding:9px 18px; background:transparent; border:1px solid rgba(232,101,10,0.35);
+  color:var(--orange); border-radius:6px; font-family:'Montserrat',sans-serif;
+  font-size:11px; font-weight:600; letter-spacing:1px; cursor:pointer; transition:all 0.3s;
+}
+.btn-secondary:hover { background:rgba(232,101,10,0.1); }
+.asaas-status-box {
+  background:rgba(232,101,10,0.06); border:1px solid var(--border);
+  border-radius:8px; padding:20px; margin-top:16px; display:none;
+}
+.asaas-status-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(232,101,10,0.08); }
+.asaas-status-row:last-child { border-bottom:none; }
+.asaas-status-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+.asaas-status-value { font-size:13px; color:var(--white); font-weight:600; }
+.link-pagamento {
+  display:flex; align-items:center; gap:10px; margin-top:16px;
+  background:rgba(76,175,80,0.08); border:1px solid rgba(76,175,80,0.25);
+  border-radius:8px; padding:14px 16px;
+}
+.link-pagamento a {
+  color:#4CAF50; font-size:12px; font-weight:600; text-decoration:none;
+  flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.link-pagamento a:hover { text-decoration:underline; }
+.copy-btn {
+  background:transparent; border:1px solid rgba(76,175,80,0.4); color:#4CAF50;
+  padding:6px 14px; border-radius:4px; font-size:10px; font-weight:700;
+  letter-spacing:1px; cursor:pointer; white-space:nowrap; transition:all 0.2s;
+}
+.copy-btn:hover { background:rgba(76,175,80,0.1); }
+.asaas-msg { font-size:12px; margin-top:12px; padding:10px 14px; border-radius:6px; display:none; }
+.asaas-msg.success { background:rgba(76,175,80,0.12); color:#4CAF50; border:1px solid rgba(76,175,80,0.3); }
+.asaas-msg.error   { background:rgba(229,57,53,0.12);  color:#E53935; border:1px solid rgba(229,57,53,0.3); }
+.asaas-msg.loading { background:rgba(232,101,10,0.08); color:var(--orange); border:1px solid var(--border); }
+
+/* Lista de assinaturas */
+.subs-table-wrap { background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-top:24px; }
+.subs-table-title {
+  padding:16px 20px; font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--orange); font-weight:700; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+
 @media (max-width:768px) {
   .topbar { padding:12px 20px; }
   .main { padding:24px 16px; }
@@ -208,6 +287,8 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
   th, td { padding:10px 12px; font-size:12px; }
   .toolbar { flex-direction:column; align-items:stretch; }
   .search-box { max-width:100%; }
+  .asaas-grid { grid-template-columns:1fr; }
+  .form-grid-2 { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -264,10 +345,11 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
       <button class="tab active" onclick="switchTab('customers',this)">Clientes (Cadastro)</button>
       <button class="tab" onclick="switchTab('leads',this)">Leads (Contato)</button>
       <button class="tab" onclick="switchTab('contratos',this)">📄 Gerar Contrato</button>
+      <button class="tab" onclick="switchTab('asaas',this)">💰 Cobrança Asaas</button>
     </div>
 
     <!-- TOOLBAR -->
-    <div class="toolbar">
+    <div class="toolbar" id="main-toolbar">
       <div class="search-box">
         <span style="color:var(--muted)">🔍</span>
         <input type="text" id="search-input" placeholder="Buscar por nome, telefone ou email..." oninput="filterTable()">
@@ -279,7 +361,7 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
     </div>
 
     <!-- TABLE -->
-    <div class="table-wrap">
+    <div class="table-wrap" id="main-table-wrap">
       <div id="table-loading" class="loading">
         <div class="spinner"></div>
         <div style="color:var(--muted);font-size:13px">Carregando dados...</div>
@@ -295,134 +377,165 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
     </div>
 
     <!-- PAINEL CONTRATOS -->
-  <div id="contratos-panel" style="display:none">
-    <div class="toolbar" style="margin-bottom:20px">
-      <div style="color:var(--muted);font-size:12px;letter-spacing:1px">Selecione um cliente cadastrado e preencha os dados da instalação para gerar o contrato em PDF.</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-
-      <!-- COLUNA 1: SELEÇÃO DO CLIENTE -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
-        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">1. Dados do Cliente</div>
-
-        <div style="margin-bottom:14px">
-          <label style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Buscar Cliente</label>
-          <input type="text" id="ct-search" placeholder="Digite o nome ou telefone..." oninput="filterClientes()" style="width:100%;padding:10px 14px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;outline:none">
+    <div id="contratos-panel" style="display:none">
+      <div class="toolbar" style="margin-bottom:20px">
+        <div style="color:var(--muted);font-size:12px;letter-spacing:1px">Selecione um cliente cadastrado e preencha os dados da instalação para gerar o contrato em PDF.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
+          <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">1. Dados do Cliente</div>
+          <div style="margin-bottom:14px">
+            <label style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px">Buscar Cliente</label>
+            <input type="text" id="ct-search" placeholder="Digite o nome ou telefone..." oninput="filterClientes()" style="width:100%;padding:10px 14px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;outline:none">
+          </div>
+          <select id="ct-cliente" size="6" style="width:100%;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;padding:8px;outline:none;margin-bottom:16px" onchange="preencherCliente()">
+            <option value="">Carregando clientes...</option>
+          </select>
+          <div id="ct-dados-cliente" style="display:none">
+            <div style="background:rgba(232,101,10,0.06);border:1px solid var(--border);border-radius:6px;padding:16px;font-size:12px;line-height:1.8">
+              <div><span style="color:var(--muted)">Nome:</span> <span id="ct-nome" style="color:var(--white);font-weight:600"></span></div>
+              <div><span style="color:var(--muted)">CPF:</span> <span id="ct-cpf"></span></div>
+              <div><span style="color:var(--muted)">Telefone:</span> <span id="ct-tel"></span></div>
+              <div><span style="color:var(--muted)">Email:</span> <span id="ct-email"></span></div>
+              <div><span style="color:var(--muted)">Endereço:</span> <span id="ct-end"></span></div>
+              <div><span style="color:var(--muted)">Plano:</span> <span id="ct-plano" style="color:var(--orange);font-weight:700"></span></div>
+            </div>
+          </div>
         </div>
-        <select id="ct-cliente" size="6" style="width:100%;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:6px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:13px;padding:8px;outline:none;margin-bottom:16px" onchange="preencherCliente()">
-          <option value="">Carregando clientes...</option>
-        </select>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
+          <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">2. Dados da Instalação</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Marca do Veículo</label><input type="text" id="ct-marca" placeholder="Ex: CHEVROLET" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Modelo / Ano</label><input type="text" id="ct-modelo" placeholder="Ex: PRISMA 2016/2017" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Cor</label><input type="text" id="ct-cor" placeholder="Ex: PRATA" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Placa</label><input type="text" id="ct-placa" placeholder="Ex: ABC1D23" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">IMEI</label><input type="text" id="ct-imei" placeholder="Ex: 355139081413947" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">CHIP</label><input type="text" id="ct-chip" placeholder="Ex: 16989080923" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">ICCID</label><input type="text" id="ct-iccid" placeholder="Ex: 4901" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Nº Equipamento</label><input type="text" id="ct-nequip" placeholder="Ex: trackermap-vt05" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Endereço Instalação</label><input type="text" id="ct-endinstal" placeholder="Ex: VAN SOM" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Usuário Plataforma</label><input type="text" id="ct-usuario" placeholder="Ex: 8881431505" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Senha Plataforma</label><input type="text" id="ct-senha" placeholder="Ex: 123456" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Equipamento</label><input type="text" id="ct-valequip" placeholder="Ex: R$ 249,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Instalação</label><input type="text" id="ct-valinstal" placeholder="Ex: R$ 150,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Dia Vencimento</label><input type="text" id="ct-venc" placeholder="Ex: 22" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Autoriza Bloqueio</label><select id="ct-bloqueio" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"><option value="SIM">SIM</option><option value="NAO">NÃO</option></select></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Forma de Pagamento</label><select id="ct-pagamento" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"><option value="Cartão">Cartão</option><option value="À vista">À vista</option><option value="Pix">Pix</option></select></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Periodicidade</label><select id="ct-periodo" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"><option value="Anual">Anual</option><option value="Mensal">Mensal</option></select></div>
+            <div><label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">OBS</label><input type="text" id="ct-obs" placeholder="Observações (opcional)" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none"></div>
+          </div>
+          <button onclick="gerarContrato()" style="width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#E8650A,#FF8C2A);color:#080808;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 28px rgba(232,101,10,0.35)">
+            📄 Gerar Contrato PDF
+          </button>
+          <div id="ct-status" style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)"></div>
+        </div>
+      </div>
+    </div>
 
-        <!-- Dados preenchidos automaticamente -->
-        <div id="ct-dados-cliente" style="display:none">
-          <div style="background:rgba(232,101,10,0.06);border:1px solid var(--border);border-radius:6px;padding:16px;font-size:12px;line-height:1.8">
-            <div><span style="color:var(--muted)">Nome:</span> <span id="ct-nome" style="color:var(--white);font-weight:600"></span></div>
-            <div><span style="color:var(--muted)">CPF:</span> <span id="ct-cpf"></span></div>
-            <div><span style="color:var(--muted)">Telefone:</span> <span id="ct-tel"></span></div>
-            <div><span style="color:var(--muted)">Email:</span> <span id="ct-email"></span></div>
-            <div><span style="color:var(--muted)">Endereço:</span> <span id="ct-end"></span></div>
-            <div><span style="color:var(--muted)">Plano:</span> <span id="ct-plano" style="color:var(--orange);font-weight:700"></span></div>
+    <!-- PAINEL ASAAS -->
+    <div id="asaas-panel">
+      <div class="asaas-grid">
+
+        <!-- COLUNA 1: GERAR COBRANÇA -->
+        <div class="asaas-card">
+          <div class="asaas-card-title">💰 1. Gerar Cobrança para Cliente</div>
+
+          <div class="form-field">
+            <label>Buscar Cliente Cadastrado</label>
+            <input type="text" id="as-search" placeholder="Digite o nome ou telefone..." oninput="filterAsaasClientes()">
+          </div>
+          <div class="form-field">
+            <label>Selecionar Cliente</label>
+            <select id="as-cliente" size="5" style="border-radius:6px" onchange="preencherAsaasCliente()">
+              <option value="">Carregando...</option>
+            </select>
+          </div>
+
+          <!-- Dados preenchidos automaticamente -->
+          <div id="as-dados-cliente" style="display:none;background:rgba(232,101,10,0.06);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:12px;line-height:1.9;margin-bottom:14px">
+            <div><span style="color:var(--muted)">Nome:</span> <span id="as-nome" style="font-weight:600"></span></div>
+            <div><span style="color:var(--muted)">CPF/CNPJ:</span> <span id="as-cpf"></span></div>
+            <div><span style="color:var(--muted)">Email:</span> <span id="as-email"></span></div>
+            <div><span style="color:var(--muted)">Telefone:</span> <span id="as-tel"></span></div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label>Plano</label>
+              <select id="as-plano">
+                <option value="easy">Easy — R$ 39,90/mês</option>
+                <option value="premium" selected>Premium — R$ 49,90/mês</option>
+                <option value="smart">Smart — R$ 59,90/mês</option>
+                <option value="anual">Anual — R$ 69,90/mês</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>CPF/CNPJ (obrigatório)</label>
+              <input type="text" id="as-cpf-input" placeholder="000.000.000-00">
+            </div>
+          </div>
+
+          <button class="btn-primary" id="as-btn-gerar" onclick="gerarCobrancaAsaas()">
+            <span id="as-btn-text">💳 Gerar Assinatura</span>
+          </button>
+
+          <div class="asaas-msg" id="as-msg"></div>
+
+          <!-- Resultado -->
+          <div class="asaas-status-box" id="as-resultado">
+            <div class="asaas-status-row">
+              <span class="asaas-status-label">Status</span>
+              <span class="asaas-status-value" id="as-res-status">—</span>
+            </div>
+            <div class="asaas-status-row">
+              <span class="asaas-status-label">ID Assinatura</span>
+              <span class="asaas-status-value" id="as-res-id" style="font-size:11px;color:var(--muted)">—</span>
+            </div>
+            <div class="asaas-status-row">
+              <span class="asaas-status-label">ID Cliente Asaas</span>
+              <span class="asaas-status-value" id="as-res-customer" style="font-size:11px;color:var(--muted)">—</span>
+            </div>
+            <div class="link-pagamento" id="as-link-box" style="display:none">
+              <a id="as-link" href="#" target="_blank">Aguardando link...</a>
+              <button class="copy-btn" onclick="copyLink()">📋 Copiar</button>
+              <a id="as-link-open" href="#" target="_blank" style="background:#4CAF50;color:#080808;padding:6px 14px;border-radius:4px;font-size:10px;font-weight:700;text-decoration:none;white-space:nowrap">🔗 Abrir</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUNA 2: ASSINATURAS ATIVAS -->
+        <div class="asaas-card">
+          <div class="asaas-card-title" style="display:flex;justify-content:space-between;align-items:center">
+            📋 2. Assinaturas Ativas
+            <button class="btn-secondary" onclick="carregarAssinaturas()">↻ Atualizar</button>
+          </div>
+
+          <div id="as-subs-loading" style="text-align:center;padding:30px;color:var(--muted);font-size:12px">
+            <div class="spinner" style="width:24px;height:24px;margin:0 auto 10px"></div>
+            Carregando assinaturas...
+          </div>
+
+          <div id="as-subs-list" style="display:none">
+            <table style="width:100%;border-collapse:collapse;font-size:12px">
+              <thead>
+                <tr style="background:rgba(232,101,10,0.08)">
+                  <th style="padding:10px 12px;text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)">Cliente</th>
+                  <th style="padding:10px 12px;text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)">Valor</th>
+                  <th style="padding:10px 12px;text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)">Status</th>
+                  <th style="padding:10px 12px;text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border)">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="as-subs-body"></tbody>
+            </table>
+          </div>
+
+          <div id="as-subs-empty" style="display:none;text-align:center;padding:40px;color:var(--muted);font-size:12px">
+            📭 Nenhuma assinatura encontrada.
           </div>
         </div>
       </div>
+    </div><!-- fim asaas-panel -->
 
-      <!-- COLUNA 2: DADOS DA INSTALAÇÃO -->
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:28px">
-        <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:20px;font-weight:700">2. Dados da Instalação</div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Marca do Veículo</label>
-            <input type="text" id="ct-marca" placeholder="Ex: CHEVROLET" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Modelo / Ano</label>
-            <input type="text" id="ct-modelo" placeholder="Ex: PRISMA 2016/2017" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Cor</label>
-            <input type="text" id="ct-cor" placeholder="Ex: PRATA" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Placa</label>
-            <input type="text" id="ct-placa" placeholder="Ex: ABC1D23" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">IMEI</label>
-            <input type="text" id="ct-imei" placeholder="Ex: 355139081413947" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">CHIP</label>
-            <input type="text" id="ct-chip" placeholder="Ex: 16989080923" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">ICCID</label>
-            <input type="text" id="ct-iccid" placeholder="Ex: 4901" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Nº Equipamento</label>
-            <input type="text" id="ct-nequip" placeholder="Ex: trackermap-vt05" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Endereço Instalação</label>
-            <input type="text" id="ct-endinstal" placeholder="Ex: VAN SOM" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Usuário Plataforma</label>
-            <input type="text" id="ct-usuario" placeholder="Ex: 8881431505" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Senha Plataforma</label>
-            <input type="text" id="ct-senha" placeholder="Ex: 123456" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Equipamento</label>
-            <input type="text" id="ct-valequip" placeholder="Ex: R$ 249,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Valor Instalação</label>
-            <input type="text" id="ct-valinstal" placeholder="Ex: R$ 150,00" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Dia Vencimento</label>
-            <input type="text" id="ct-venc" placeholder="Ex: 22" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Autoriza Bloqueio</label>
-            <select id="ct-bloqueio" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-              <option value="SIM">SIM</option>
-              <option value="NAO">NÃO</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Forma de Pagamento</label>
-            <select id="ct-pagamento" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-              <option value="Cartão">Cartão</option>
-              <option value="À vista">À vista</option>
-              <option value="Pix">Pix</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Periodicidade</label>
-            <select id="ct-periodo" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-              <option value="Anual">Anual</option>
-              <option value="Mensal">Mensal</option>
-            </select>
-          </div>
-          <div>
-            <label style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">OBS</label>
-            <input type="text" id="ct-obs" placeholder="Observações (opcional)" style="width:100%;padding:9px 12px;background:rgba(245,240,235,0.05);border:1px solid var(--border);border-radius:5px;color:var(--white);font-family:'Montserrat',sans-serif;font-size:12px;outline:none">
-          </div>
-        </div>
-
-        <!-- BOTÃO GERAR -->
-        <button onclick="gerarContrato()" style="width:100%;margin-top:20px;padding:14px;background:linear-gradient(135deg,#E8650A,#FF8C2A);color:#080808;border:none;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 28px rgba(232,101,10,0.35)">
-          📄 Gerar Contrato PDF
-        </button>
-        <div id="ct-status" style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)"></div>
-      </div>
-    </div>
-  </div><!-- fim contratos-panel -->
   </div><!-- fim main -->
 
   <div class="admin-footer">TrackerMap Admin &copy; 2025 — Painel interno</div>
@@ -440,13 +553,14 @@ tbody tr:hover { background:rgba(232,101,10,0.04); }
 
 <script>
 /* ===== CONFIG ===== */
-var SUPABASE_URL  = 'https://cgjzyenrzqnjzzseqici.supabase.co';
+var SUPABASE_URL      = 'https://cgjzyenrzqnjzzseqici.supabase.co';
 var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnanp5ZW5yenFuanp6c2VxaWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NzM1MzAsImV4cCI6MjA4NzQ0OTUzMH0.JMSUl7-TfD1Myc4UhNX6JQV11sTzP-5DKAiKkQPAmfk';
-var ADMIN_PASS = 'trackermap2025'; /* TROQUE ESTA SENHA */
+var ADMIN_PASS        = 'trackermap2025';
+var API_BASE          = '/api';
 
 /* ===== STATE ===== */
 var currentTab = 'customers';
-var allData = [];
+var allData    = [];
 
 /* ===== LOGIN ===== */
 function doLogin() {
@@ -470,7 +584,6 @@ function doLogout() {
   document.getElementById('login-pass').value = '';
 }
 
-/* Auto-login se sessão ativa */
 if (sessionStorage.getItem('tm_admin')) {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
@@ -494,10 +607,7 @@ function startClock() {
 /* ===== FETCH DATA ===== */
 async function fetchTable(table) {
   var r = await fetch(SUPABASE_URL + '/rest/v1/' + table + '?select=*&order=id.desc', {
-    headers: {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
-    }
+    headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
   });
   if (!r.ok) throw new Error('Erro ao buscar ' + table);
   return r.json();
@@ -508,22 +618,17 @@ async function loadData() {
   try {
     var customers = await fetchTable('customers');
     var leads     = await fetchTable('leads');
-
-    /* stats */
-    var today = new Date().toISOString().slice(0,10);
-    var weekAgo = new Date(Date.now() - 7*24*60*60*1000).toISOString();
-    var all = customers.concat(leads);
-    var todayCount = all.filter(function(r){ return r.created_at && r.created_at.slice(0,10) === today; }).length;
-    var weekCount  = all.filter(function(r){ return r.created_at && r.created_at >= weekAgo; }).length;
+    var today     = new Date().toISOString().slice(0,10);
+    var weekAgo   = new Date(Date.now() - 7*24*60*60*1000).toISOString();
+    var all       = customers.concat(leads);
 
     document.getElementById('stat-customers').textContent = customers.length;
     document.getElementById('stat-leads').textContent     = leads.length;
-    document.getElementById('stat-today').textContent     = todayCount;
-    document.getElementById('stat-week').textContent      = weekCount;
+    document.getElementById('stat-today').textContent     = all.filter(function(r){ return r.created_at && r.created_at.slice(0,10) === today; }).length;
+    document.getElementById('stat-week').textContent      = all.filter(function(r){ return r.created_at && r.created_at >= weekAgo; }).length;
 
     window._customers = customers;
     window._leads     = leads;
-
     renderTable();
   } catch(e) {
     console.error(e);
@@ -537,21 +642,32 @@ function switchTab(tab, btn) {
   document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
   btn.classList.add('active');
 
+  var toolbar       = document.getElementById('main-toolbar');
+  var tableWrap     = document.getElementById('main-table-wrap');
+  var contratosPanel= document.getElementById('contratos-panel');
+  var asaasPanel    = document.getElementById('asaas-panel');
+
+  // Reset tudo
+  toolbar.style.display       = 'none';
+  tableWrap.style.display     = 'none';
+  contratosPanel.style.display= 'none';
+  asaasPanel.style.display    = 'none';
+
   if (tab === 'contratos') {
-    document.querySelector('.toolbar').style.display = 'none';
-    document.querySelector('.table-wrap').style.display = 'none';
-    document.getElementById('contratos-panel').style.display = 'block';
+    contratosPanel.style.display = 'block';
     switchTabContratos();
+  } else if (tab === 'asaas') {
+    asaasPanel.style.display = 'block';
+    initAsaasPanel();
   } else {
-    document.querySelector('.toolbar').style.display = '';
-    document.querySelector('.table-wrap').style.display = '';
-    document.getElementById('contratos-panel').style.display = 'none';
+    toolbar.style.display   = '';
+    tableWrap.style.display = '';
     document.getElementById('search-input').value = '';
     renderTable();
   }
 }
 
-/* ===== RENDER ===== */
+/* ===== RENDER TABLE ===== */
 function renderTable() {
   var data = currentTab === 'customers' ? (window._customers || []) : (window._leads || []);
   allData = data;
@@ -563,31 +679,20 @@ function renderTable() {
              (r.email && r.email.toLowerCase().includes(q));
     });
   }
-
   if (data.length === 0) { showEmpty(); return; }
 
-  /* HEAD */
   var isCustomers = currentTab === 'customers';
   document.getElementById('table-head').innerHTML =
-    '<tr>' +
-    '<th>#</th>' +
-    '<th>Nome</th>' +
-    '<th>Telefone</th>' +
+    '<tr><th>#</th><th>Nome</th><th>Telefone</th>' +
     (isCustomers ? '<th>Email</th>' : '') +
-    '<th>Plano</th>' +
-    '<th>Mensagem</th>' +
-    '<th>Data</th>' +
-    '<th>Ação</th>' +
-    '</tr>';
+    '<th>Plano</th><th>Mensagem</th><th>Data</th><th>Ação</th></tr>';
 
-  /* BODY */
   var html = '';
   data.forEach(function(r) {
     var planBadge = getPlanBadge(r.plan);
     var date = r.created_at ? new Date(r.created_at).toLocaleString('pt-BR') : '—';
-    var msg = r.message ? (r.message.length > 40 ? r.message.substring(0,40)+'...' : r.message) : '<span style="color:var(--muted)">—</span>';
-    var waLink = 'https://wa.me/55' + (r.phone || '').replace(/\D/g,'') + '?text=' + encodeURIComponent('Ola ' + (r.name||'') + ', sou da TrackerMap!');
-
+    var msg  = r.message ? (r.message.length > 40 ? r.message.substring(0,40)+'...' : r.message) : '<span style="color:var(--muted)">—</span>';
+    var waLink = 'https://wa.me/55' + (r.phone||'').replace(/\D/g,'') + '?text=' + encodeURIComponent('Ola ' + (r.name||'') + ', sou da TrackerMap!');
     html += '<tr onclick="openModal(' + JSON.stringify(r).replace(/'/g,"\\'") + ')" style="cursor:pointer">' +
       '<td style="color:var(--muted)">' + r.id + '</td>' +
       '<td><strong>' + (r.name||'—') + '</strong></td>' +
@@ -602,8 +707,8 @@ function renderTable() {
 
   document.getElementById('table-body').innerHTML = html;
   document.getElementById('table-loading').style.display = 'none';
-  document.getElementById('empty-state').style.display = 'none';
-  document.getElementById('data-table').style.display = 'table';
+  document.getElementById('empty-state').style.display   = 'none';
+  document.getElementById('data-table').style.display    = 'table';
 }
 
 function getPlanBadge(plan) {
@@ -618,14 +723,13 @@ function getPlanBadge(plan) {
 
 function showLoading() {
   document.getElementById('table-loading').style.display = 'block';
-  document.getElementById('data-table').style.display = 'none';
-  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('data-table').style.display    = 'none';
+  document.getElementById('empty-state').style.display   = 'none';
 }
-
 function showEmpty() {
   document.getElementById('table-loading').style.display = 'none';
-  document.getElementById('data-table').style.display = 'none';
-  document.getElementById('empty-state').style.display = 'block';
+  document.getElementById('data-table').style.display    = 'none';
+  document.getElementById('empty-state').style.display   = 'block';
 }
 
 /* ===== SEARCH ===== */
@@ -636,45 +740,23 @@ function openModal(r) {
   document.getElementById('modal-title').textContent = r.name || 'Detalhes';
   var waPhone = '55' + (r.phone||'').replace(/\D/g,'');
   document.getElementById('modal-wa').href = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent('Ola ' + (r.name||'') + ', sou da TrackerMap!');
-
-  var fields = [
-    {label:'ID', value: r.id},
-    {label:'Nome', value: r.name},
-    {label:'Telefone', value: r.phone},
-    {label:'Email', value: r.email},
-    {label:'Plano', value: r.plan},
-    {label:'Mensagem', value: r.message},
-    {label:'Data', value: r.created_at ? new Date(r.created_at).toLocaleString('pt-BR') : null}
-  ];
-
+  var fields = [{label:'ID',value:r.id},{label:'Nome',value:r.name},{label:'Telefone',value:r.phone},{label:'Email',value:r.email},{label:'Plano',value:r.plan},{label:'Mensagem',value:r.message},{label:'Data',value:r.created_at?new Date(r.created_at).toLocaleString('pt-BR'):null}];
   var html = '';
-  fields.forEach(function(f) {
-    if (f.value) {
-      html += '<div class="modal-row"><div class="modal-label">' + f.label + '</div><div class="modal-value">' + f.value + '</div></div>';
-    }
-  });
+  fields.forEach(function(f) { if (f.value) html += '<div class="modal-row"><div class="modal-label">'+f.label+'</div><div class="modal-value">'+f.value+'</div></div>'; });
   document.getElementById('modal-body').innerHTML = html;
   document.getElementById('detail-modal').classList.add('show');
 }
-
-function closeModal() {
-  document.getElementById('detail-modal').classList.remove('show');
-}
+function closeModal() { document.getElementById('detail-modal').classList.remove('show'); }
 
 /* ===== EXPORT CSV ===== */
 function exportCSV() {
   var data = currentTab === 'customers' ? (window._customers || []) : (window._leads || []);
   if (!data.length) { alert('Nenhum dado para exportar.'); return; }
-
   var cols = Object.keys(data[0]);
   var csv  = cols.join(',') + '\n';
   data.forEach(function(r) {
-    csv += cols.map(function(c) {
-      var v = r[c] != null ? String(r[c]) : '';
-      return '"' + v.replace(/"/g,'""') + '"';
-    }).join(',') + '\n';
+    csv += cols.map(function(c) { var v = r[c]!=null?String(r[c]):''; return '"'+v.replace(/"/g,'""')+'"'; }).join(',') + '\n';
   });
-
   var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   var url  = URL.createObjectURL(blob);
   var a    = document.createElement('a');
@@ -684,27 +766,15 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
-/* ESC fecha modal */
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
 /* ===== CONTRATOS ===== */
 async function switchTabContratos() {
-  document.getElementById('data-table').style.display = 'none';
-  document.getElementById('empty-state').style.display = 'none';
-  document.getElementById('contratos-panel').style.display = 'block';
-
-  /* Se ainda não carregou, busca agora */
   if (!window._customers || !window._customers.length) {
-    document.getElementById('ct-search').placeholder = 'Carregando clientes...';
-    try {
-      window._customers = await fetchTable('customers');
-    } catch(e) { console.error(e); }
-    document.getElementById('ct-search').placeholder = 'Digite o nome ou telefone...';
+    try { window._customers = await fetchTable('customers'); } catch(e) { console.error(e); }
   }
   popularSelectClientes();
 }
-
-
 
 function popularSelectClientes() {
   var clientes = window._customers || [];
@@ -714,14 +784,11 @@ function popularSelectClientes() {
   var filtrados = clientes.filter(function(c) {
     return !search || (c.name && c.name.toLowerCase().includes(search)) || (c.phone && c.phone.includes(search));
   });
-  if (!filtrados.length) {
-    select.innerHTML = '<option value="">Nenhum cliente encontrado</option>';
-    return;
-  }
+  if (!filtrados.length) { select.innerHTML = '<option value="">Nenhum cliente encontrado</option>'; return; }
   filtrados.forEach(function(c) {
     var opt = document.createElement('option');
     opt.value = c.id;
-    opt.textContent = (c.name || 'Sem nome') + ' — ' + (c.phone || '');
+    opt.textContent = (c.name||'Sem nome') + ' — ' + (c.phone||'');
     opt.dataset.json = JSON.stringify(c);
     select.appendChild(opt);
   });
@@ -739,10 +806,211 @@ function preencherCliente() {
   document.getElementById('ct-cpf').textContent   = c.cpf   || '';
   document.getElementById('ct-tel').textContent   = c.phone || '';
   document.getElementById('ct-email').textContent = c.email || '';
-  document.getElementById('ct-end').textContent   = (c.address || '') + (c.neighborhood ? ', ' + c.neighborhood : '');
+  document.getElementById('ct-end').textContent   = (c.address||'') + (c.neighborhood?', '+c.neighborhood:'');
   document.getElementById('ct-plano').textContent = c.plan  || '';
-  /* preenche placa automaticamente se vier do cadastro */
   if (c.plate) document.getElementById('ct-placa').value = c.plate;
+}
+
+/* ===== ASAAS PANEL ===== */
+async function initAsaasPanel() {
+  if (!window._customers || !window._customers.length) {
+    try { window._customers = await fetchTable('customers'); } catch(e) { console.error(e); }
+  }
+  popularAsaasClientes();
+  carregarAssinaturas();
+}
+
+function popularAsaasClientes() {
+  var clientes = window._customers || [];
+  var select = document.getElementById('as-cliente');
+  var search = (document.getElementById('as-search').value || '').toLowerCase();
+  select.innerHTML = '';
+  var filtrados = clientes.filter(function(c) {
+    return !search || (c.name && c.name.toLowerCase().includes(search)) || (c.phone && c.phone.includes(search));
+  });
+  if (!filtrados.length) { select.innerHTML = '<option value="">Nenhum cliente encontrado</option>'; return; }
+  filtrados.forEach(function(c) {
+    var opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = (c.name||'Sem nome') + ' — ' + (c.phone||'');
+    opt.dataset.json = JSON.stringify(c);
+    select.appendChild(opt);
+  });
+}
+
+function filterAsaasClientes() { popularAsaasClientes(); }
+
+function preencherAsaasCliente() {
+  var select = document.getElementById('as-cliente');
+  var opt    = select.options[select.selectedIndex];
+  if (!opt || !opt.dataset.json) return;
+  var c = JSON.parse(opt.dataset.json);
+  document.getElementById('as-dados-cliente').style.display = 'block';
+  document.getElementById('as-nome').textContent  = c.name  || '';
+  document.getElementById('as-cpf').textContent   = c.cpf   || '';
+  document.getElementById('as-email').textContent = c.email || '';
+  document.getElementById('as-tel').textContent   = c.phone || '';
+  // Preenche CPF no input e seleciona plano automaticamente
+  if (c.cpf)  document.getElementById('as-cpf-input').value = c.cpf;
+  if (c.plan) {
+    var plano = c.plan.toLowerCase();
+    var sel   = document.getElementById('as-plano');
+    for (var i=0; i<sel.options.length; i++) {
+      if (sel.options[i].value === plano) { sel.selectedIndex = i; break; }
+    }
+  }
+}
+
+function showAsaasMsg(msg, type) {
+  var el = document.getElementById('as-msg');
+  el.textContent = msg;
+  el.className   = 'asaas-msg ' + type;
+  el.style.display = 'block';
+}
+
+async function gerarCobrancaAsaas() {
+  var select = document.getElementById('as-cliente');
+  var opt    = select.options[select.selectedIndex];
+  if (!opt || !opt.dataset.json) { showAsaasMsg('⚠️ Selecione um cliente!', 'error'); return; }
+  var c   = JSON.parse(opt.dataset.json);
+  var cpf = document.getElementById('as-cpf-input').value.trim().replace(/\D/g,'');
+
+  if (!cpf || cpf.length < 11) {
+    showAsaasMsg('⚠️ CPF/CNPJ obrigatório e deve ter 11 dígitos (CPF) ou 14 (CNPJ).', 'error');
+    return;
+  }
+
+  var plano = document.getElementById('as-plano').value;
+  var btn   = document.getElementById('as-btn-gerar');
+  btn.disabled = true;
+  document.getElementById('as-btn-text').textContent = '⏳ Gerando...';
+  showAsaasMsg('Conectando com Asaas...', 'loading');
+  document.getElementById('as-resultado').style.display = 'none';
+
+  try {
+    var res = await fetch(API_BASE + '/asaas?action=create-subscription', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:        c.name  || '',
+        email:       c.email || '',
+        cpfCnpj:     cpf,
+        phone:       (c.phone||'').replace(/\D/g,''),
+        mobilePhone: (c.phone||'').replace(/\D/g,''),
+        plan:        plano
+      })
+    });
+
+    var data = await res.json();
+
+    if (!res.ok || data.error) {
+      var errMsg = data.details ? JSON.stringify(data.details) : (data.error || 'Erro desconhecido');
+      showAsaasMsg('❌ ' + errMsg, 'error');
+      return;
+    }
+
+    // Sucesso!
+    showAsaasMsg('✅ Assinatura criada com sucesso!', 'success');
+    document.getElementById('as-resultado').style.display = 'block';
+    document.getElementById('as-res-status').innerHTML   = '<span class="badge badge-ativo">' + (data.status||'ATIVO') + '</span>';
+    document.getElementById('as-res-id').textContent     = data.subscription_id || '—';
+    document.getElementById('as-res-customer').textContent = data.customer_id   || '—';
+
+    if (data.payment_link) {
+      var linkBox = document.getElementById('as-link-box');
+      linkBox.style.display = 'flex';
+      document.getElementById('as-link').textContent = data.payment_link;
+      document.getElementById('as-link').href        = data.payment_link;
+      document.getElementById('as-link-open').href   = data.payment_link;
+    }
+
+    // Atualiza lista de assinaturas
+    setTimeout(carregarAssinaturas, 1500);
+
+  } catch(e) {
+    showAsaasMsg('❌ Erro de conexão: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    document.getElementById('as-btn-text').textContent = '💳 Gerar Assinatura';
+  }
+}
+
+function copyLink() {
+  var link = document.getElementById('as-link').textContent;
+  navigator.clipboard.writeText(link).then(function() {
+    var btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ Copiado!';
+    setTimeout(function(){ btn.textContent = '📋 Copiar'; }, 2000);
+  });
+}
+
+async function carregarAssinaturas() {
+  document.getElementById('as-subs-loading').style.display = 'block';
+  document.getElementById('as-subs-list').style.display    = 'none';
+  document.getElementById('as-subs-empty').style.display   = 'none';
+
+  try {
+    var res  = await fetch(API_BASE + '/asaas?action=list-subscriptions');
+    var data = await res.json();
+
+    if (!data.data || !data.data.length) {
+      document.getElementById('as-subs-loading').style.display = 'none';
+      document.getElementById('as-subs-empty').style.display   = 'block';
+      return;
+    }
+
+    var html = '';
+    data.data.forEach(function(sub) {
+      var statusBadge = sub.status === 'ACTIVE'
+        ? '<span class="badge badge-ativo">Ativo</span>'
+        : sub.status === 'INACTIVE'
+        ? '<span class="badge badge-inativo">Inativo</span>'
+        : '<span class="badge badge-pendente">' + sub.status + '</span>';
+
+      var valor = 'R$ ' + parseFloat(sub.value).toFixed(2).replace('.',',');
+
+      html += '<tr>' +
+        '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07);font-size:12px">' +
+          '<div style="font-weight:600;margin-bottom:2px">' + (sub.customer?.name || sub.externalReference || '—') + '</div>' +
+          '<div style="color:var(--muted);font-size:10px">' + (sub.description||'') + '</div>' +
+        '</td>' +
+        '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07);color:var(--orange);font-weight:700;font-size:12px">' + valor + '</td>' +
+        '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07)">' + statusBadge + '</td>' +
+        '<td style="padding:10px 12px;border-bottom:1px solid rgba(232,101,10,0.07)">' +
+          '<button onclick="cancelarAssinatura(\'' + sub.id + '\')" style="background:transparent;border:1px solid rgba(229,57,53,0.4);color:#E53935;padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.background=\'rgba(229,57,53,0.1)\'" onmouseout="this.style.background=\'transparent\'">🗑 Cancelar</button>' +
+        '</td>' +
+        '</tr>';
+    });
+
+    document.getElementById('as-subs-body').innerHTML = html;
+    document.getElementById('as-subs-loading').style.display = 'none';
+    document.getElementById('as-subs-list').style.display    = 'block';
+
+  } catch(e) {
+    document.getElementById('as-subs-loading').style.display = 'none';
+    document.getElementById('as-subs-empty').style.display   = 'block';
+    console.error('Erro ao carregar assinaturas:', e);
+  }
+}
+
+async function cancelarAssinatura(id) {
+  if (!confirm('Tem certeza que deseja cancelar esta assinatura?')) return;
+  try {
+    var res  = await fetch(API_BASE + '/asaas?action=cancel-subscription', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id })
+    });
+    var data = await res.json();
+    if (data.success) {
+      alert('✅ Assinatura cancelada com sucesso.');
+      carregarAssinaturas();
+    } else {
+      alert('❌ Erro ao cancelar: ' + JSON.stringify(data));
+    }
+  } catch(e) {
+    alert('❌ Erro de conexão: ' + e.message);
+  }
 }
 
 /* ===== GERAR PDF ===== */
@@ -778,218 +1046,125 @@ function gerarContrato() {
   try {
     var jsPDF = window.jspdf.jsPDF;
     var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var pw = 210, ml = 15, mr = 15, cw = pw - ml - mr, y = 15;
 
-    var pw = 210; /* largura A4 */
-    var ml = 15; /* margem esquerda */
-    var mr = 15; /* margem direita */
-    var cw = pw - ml - mr; /* largura útil */
-    var y = 15;
-
-    /* ---- FUNÇÕES AUXILIARES ---- */
     function addTitle(txt) {
-      doc.setFillColor(232, 101, 10);
-      doc.rect(ml, y, cw, 7, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.setTextColor(255,255,255);
-      doc.text(txt, pw/2, y+5, {align:'center'});
-      doc.setTextColor(0,0,0);
-      y += 10;
+      doc.setFillColor(232,101,10); doc.rect(ml,y,cw,7,'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(255,255,255);
+      doc.text(txt,pw/2,y+5,{align:'center'}); doc.setTextColor(0,0,0); y+=10;
     }
-
     function addSection(titulo) {
-      doc.setFillColor(245, 245, 245);
-      doc.rect(ml, y, cw, 6, 'F');
-      doc.setDrawColor(200,200,200);
-      doc.rect(ml, y, cw, 6, 'S');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(8);
-      doc.setTextColor(60,60,60);
-      doc.text(titulo, pw/2, y+4.2, {align:'center'});
-      doc.setTextColor(0,0,0);
-      y += 8;
+      doc.setFillColor(245,245,245); doc.rect(ml,y,cw,6,'F');
+      doc.setDrawColor(200,200,200); doc.rect(ml,y,cw,6,'S');
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(60,60,60);
+      doc.text(titulo,pw/2,y+4.2,{align:'center'}); doc.setTextColor(0,0,0); y+=8;
     }
-
     function addRow(cols) {
-      var rowH = 7;
-      var colW = cw / cols.length;
+      var rowH=7, colW=cw/cols.length;
       doc.setDrawColor(200,200,200);
-      cols.forEach(function(col, i) {
-        var x = ml + i * colW;
-        doc.rect(x, y, colW, rowH, 'S');
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(7);
-        doc.setTextColor(100,100,100);
-        doc.text(col.label, x+2, y+2.8);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(20,20,20);
-        doc.text(col.value || '', x+2, y+5.8);
-      });
-      y += rowH;
+      cols.forEach(function(col,i) {
+        var x=ml+i*colW; doc.rect(x,y,colW,rowH,'S');
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(100,100,100); doc.text(col.label,x+2,y+2.8);
+        doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(20,20,20); doc.text(col.value||'',x+2,y+5.8);
+      }); y+=rowH;
     }
+    function space(h){ y+=h||4; }
+    function checkPage(needed){ if(y+needed>275){doc.addPage();y=15;} }
 
-    function addText(txt, bold, size) {
-      doc.setFont('helvetica', bold ? 'bold' : 'normal');
-      doc.setFontSize(size || 8);
-      doc.setTextColor(40,40,40);
-      var lines = doc.splitTextToSize(txt, cw);
-      lines.forEach(function(line) {
-        if (y > 270) { doc.addPage(); y = 15; }
-        doc.text(line, ml, y);
-        y += 4.5;
-      });
-    }
-
-    function space(h) { y += h || 4; }
-
-    function checkPage(needed) {
-      if (y + needed > 275) { doc.addPage(); y = 15; }
-    }
-
-    /* ===== CABEÇALHO ===== */
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(13);
-    doc.setTextColor(232,101,10);
-    doc.text('TRACKERMAP', pw/2, y+4, {align:'center'});
-    doc.setFontSize(7);
-    doc.setTextColor(120,120,120);
-    doc.text('GESTÃO DE FROTA — TELEMETRIA VEICULAR', pw/2, y+9, {align:'center'});
-    y += 14;
+    doc.setFont('helvetica','bold'); doc.setFontSize(13); doc.setTextColor(232,101,10);
+    doc.text('TRACKERMAP',pw/2,y+4,{align:'center'});
+    doc.setFontSize(7); doc.setTextColor(120,120,120);
+    doc.text('GESTÃO DE FROTA — TELEMETRIA VEICULAR',pw/2,y+9,{align:'center'}); y+=14;
 
     addTitle('TERMO DE PRESTAÇÃO DE SERVIÇOS DE RASTREAMENTO VEICULAR E COMODATO DE EQUIPAMENTOS');
-
-    /* PRESTADOR */
     addSection('PRESTADOR DE SERVIÇOS CONTRATADO');
-    doc.setFillColor(255,255,255);
-    doc.rect(ml, y, cw, 8, 'FD');
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(8);
-    doc.setTextColor(30,30,30);
-    doc.text('ROGÉRIO BORGES ASSUNÇÃO, INSCRITO NO CPF: 045.340.485-56, ÓRGÃO EMISSOR SSP-BA, RESIDENTE NA CIDADE DE SALVADOR-BA.', ml+2, y+5.5, {maxWidth: cw-4});
-    y += 10; space(2);
+    doc.setFillColor(255,255,255); doc.rect(ml,y,cw,8,'FD');
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(30,30,30);
+    doc.text('ROGÉRIO BORGES ASSUNÇÃO, INSCRITO NO CPF: 045.340.485-56, ÓRGÃO EMISSOR SSP-BA, RESIDENTE NA CIDADE DE SALVADOR-BA.',ml+2,y+5.5,{maxWidth:cw-4});
+    y+=10; space(2);
 
-    /* DADOS DO CLIENTE */
     addSection('DADOS DO CLIENTE CONTRATANTE');
-    addRow([{label:'NOME/RAZÃO SOCIAL:', value: (c.name||'').toUpperCase()}, {label:'E-MAIL:', value: c.email||''}]);
-    addRow([{label:'CPF/CNPJ:', value: c.cpf||''}, {label:'DATA NASCIMENTO:', value: c.birthday||''}, {label:'TEL.:', value: c.phone||''}, {label:'WHATSAPP:', value: c.phone||''}]);
-    addRow([{label:'LOGRADOURO:', value: c.address||''}]);
-    addRow([{label:'BAIRRO:', value: c.neighborhood||''}, {label:'CIDADE:', value: 'Salvador'}, {label:'UF:', value: 'BA'}, {label:'CEP:', value: c.zipcode||''}]);
+    addRow([{label:'NOME/RAZÃO SOCIAL:',value:(c.name||'').toUpperCase()},{label:'E-MAIL:',value:c.email||''}]);
+    addRow([{label:'CPF/CNPJ:',value:c.cpf||''},{label:'DATA NASCIMENTO:',value:c.birthday||''},{label:'TEL.:',value:c.phone||''},{label:'WHATSAPP:',value:c.phone||''}]);
+    addRow([{label:'LOGRADOURO:',value:c.address||''}]);
+    addRow([{label:'BAIRRO:',value:c.neighborhood||''},{label:'CIDADE:',value:'Salvador'},{label:'UF:',value:'BA'},{label:'CEP:',value:c.zipcode||''}]);
     space(3);
 
-    /* DADOS DO VEÍCULO */
     addSection('DADOS DOS VEÍCULOS RASTREADOS');
-    addRow([{label:'MARCA:', value: inst.marca}, {label:'MOD. / ANO:', value: inst.modelo}, {label:'COR:', value: inst.cor}, {label:'PLACA:', value: inst.placa}]);
+    addRow([{label:'MARCA:',value:inst.marca},{label:'MOD. / ANO:',value:inst.modelo},{label:'COR:',value:inst.cor},{label:'PLACA:',value:inst.placa}]);
     space(3);
 
-    /* DADOS INSTALAÇÃO */
     addSection('DADOS PARA INSTALAÇÃO');
-    addRow([{label:'ENDEREÇO DA INSTALAÇÃO:', value: inst.endinstal}]);
-    addRow([{label:'AUTORIZA BLOQUEIO:', value: '( ' + (inst.bloqueio==='SIM'?'X':' ') + ' ) SIM, concordo com item 4.10 do Contrato.   ( ' + (inst.bloqueio!=='SIM'?'X':' ') + ' ) NÃO.'}]);
-    addRow([{label:'USUÁRIO:', value: inst.usuario}, {label:'SENHA:', value: inst.senha}]);
-    if (inst.obs) addRow([{label:'OBS:', value: inst.obs}]);
+    addRow([{label:'ENDEREÇO DA INSTALAÇÃO:',value:inst.endinstal}]);
+    addRow([{label:'AUTORIZA BLOQUEIO:',value:'( '+(inst.bloqueio==='SIM'?'X':' ')+' ) SIM, concordo com item 4.10 do Contrato.   ( '+(inst.bloqueio!=='SIM'?'X':' ')+' ) NÃO.'}]);
+    addRow([{label:'USUÁRIO:',value:inst.usuario},{label:'SENHA:',value:inst.senha}]);
+    if (inst.obs) addRow([{label:'OBS:',value:inst.obs}]);
     space(3);
 
-    /* TABELA EQUIPAMENTOS */
     addSection('TABELA I - Relação dos Equipamentos de Rastreamento Comodatos');
-    addRow([{label:'N:', value: '001'}, {label:'IMEI:', value: inst.imei}, {label:'CHIP:', value: inst.chip}, {label:'ICCID:', value: inst.iccid}]);
-    addRow([{label:'VALOR DO EQUIPAMENTO:', value: inst.valequip}, {label:'VALOR POR EXTENSO:', value: ''}]);
+    addRow([{label:'N:',value:'001'},{label:'IMEI:',value:inst.imei},{label:'CHIP:',value:inst.chip},{label:'ICCID:',value:inst.iccid}]);
+    addRow([{label:'VALOR DO EQUIPAMENTO:',value:inst.valequip},{label:'VALOR POR EXTENSO:',value:''}]);
     space(5);
 
-    /* PÁGINA 2 - ANEXO II */
-    checkPage(80);
-    space(4);
+    checkPage(80); space(4);
     addTitle('ANEXO II — VALORES DE INSTALAÇÃO / DESINSTALAÇÃO');
 
-    var hoje = new Date();
-    var meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-    var dataHoje = hoje.getDate() + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
-
-    addRow([{label:'DATA DA ADESÃO:', value: dataHoje}, {label:'VALOR(R$):', value: inst.valinstal}]);
+    var hoje=new Date();
+    var dataHoje=hoje.getDate()+'/'+String(hoje.getMonth()+1).padStart(2,'0')+'/'+hoje.getFullYear();
+    addRow([{label:'DATA DA ADESÃO:',value:dataHoje},{label:'VALOR(R$):',value:inst.valinstal}]);
     space(2);
 
     addSection('VALOR DO SERVIÇO DE RASTREAMENTO');
+    var plano=(c.plan||'').toLowerCase();
+    var valMensal='R$ 49,90';
+    if(plano.includes('easy'))  valMensal='R$ 39,90';
+    if(plano.includes('smart')) valMensal='R$ 59,90';
+    if(plano.includes('anual')) valMensal='R$ 69,90';
 
-    /* Determina valor pelo plano */
-    var plano = (c.plan || '').toLowerCase();
-    var valMensal = 'R$ 49,90';
-    if (plano.includes('easy'))    valMensal = 'R$ 39,90';
-    if (plano.includes('smart'))   valMensal = 'R$ 59,90';
-    if (plano.includes('anual'))   valMensal = 'R$ 69,90';
-
-    addRow([{label:'DIA DE VENCIMENTO:', value: inst.venc}, {label:'VALOR(R$):', value: valMensal}]);
-    addRow([{label:'Periodicidade:', value: '( ' + (inst.periodo==='Anual'?' ':'X') + ' ) Mensal – Assinatura;   ( ' + (inst.periodo==='Anual'?'X':' ') + ' ) Anual.'}]);
-    addRow([{label:'Forma de Pagamento:', value: '( ' + (inst.pagamento==='Cartão'?'X':' ') + ' ) Cartão;   ( ' + (inst.pagamento==='À vista'?'X':' ') + ' ) À vista'}]);
+    addRow([{label:'DIA DE VENCIMENTO:',value:inst.venc},{label:'VALOR(R$):',value:valMensal}]);
+    addRow([{label:'Periodicidade:',value:'( '+(inst.periodo==='Anual'?' ':'X')+' ) Mensal – Assinatura;   ( '+(inst.periodo==='Anual'?'X':' ')+' ) Anual.'}]);
+    addRow([{label:'Forma de Pagamento:',value:'( '+(inst.pagamento==='Cartão'?'X':' ')+' ) Cartão;   ( '+(inst.pagamento==='À vista'?'X':' ')+' ) À vista'}]);
     space(3);
 
-    /* OBS pagamento */
-    doc.setFillColor(255,255,255);
-    doc.rect(ml, y, cw, 28, 'FD');
-    doc.setDrawColor(200,200,200);
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(7.5);
-    doc.setTextColor(40,40,40);
-    var obsText = 'OBS: Declara o cliente estar ciente de que o pagamento do plano de rastreamento veicular, será contratado de forma anual, no valor de R$ 480,00 (quatrocentos e oitenta reais), sendo parcelado em até 12 (doze) vezes sem juros no cartão de crédito. Em caso de falha ou cancelamento do pagamento junto à operadora do cartão, o cliente terá o prazo de 48 (quarenta e oito) horas para cadastrar um novo cartão ou efetuar o pagamento via Pix. Não sendo regularizada a situação dentro do prazo estabelecido, o cliente terá o seu acesso suspenso. Persistindo o atraso por mais de 7 (sete) dias, o cliente tem ciência de que os serviços contratados serão cancelados e bloqueados, incluindo o bloqueio do veículo rastreado. O retorno à prestação de serviço será realizado mediante a regularização do pagamento, acrescido da taxa de R$ 150,00 (cento e cinquenta reais) para reativação dos serviços contratados.';
-    var obsLines = doc.splitTextToSize(obsText, cw-4);
-    obsLines.forEach(function(l, i){ doc.text(l, ml+2, y+4+(i*3.8)); });
-    y += 30; space(3);
+    doc.setFillColor(255,255,255); doc.rect(ml,y,cw,28,'FD'); doc.setDrawColor(200,200,200);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(40,40,40);
+    var obsText='OBS: Declara o cliente estar ciente de que o pagamento do plano de rastreamento veicular, será contratado de forma anual, no valor de R$ 480,00 (quatrocentos e oitenta reais), sendo parcelado em até 12 (doze) vezes sem juros no cartão de crédito. Em caso de falha ou cancelamento do pagamento junto à operadora do cartão, o cliente terá o prazo de 48 (quarenta e oito) horas para cadastrar um novo cartão ou efetuar o pagamento via Pix. Não sendo regularizada a situação dentro do prazo estabelecido, o cliente terá o seu acesso suspenso. Persistindo o atraso por mais de 7 (sete) dias, o cliente tem ciência de que os serviços contratados serão cancelados e bloqueados, incluindo o bloqueio do veículo rastreado. O retorno à prestação de serviço será realizado mediante a regularização do pagamento, acrescido da taxa de R$ 150,00 (cento e cinquenta reais) para reativação dos serviços contratados.';
+    doc.splitTextToSize(obsText,cw-4).forEach(function(l,i){doc.text(l,ml+2,y+4+(i*3.8));});
+    y+=30; space(3);
 
-    /* CONDIÇÕES GERAIS */
     addSection('CONDIÇÕES GERAIS');
-    doc.setFillColor(255,255,255);
-    doc.rect(ml, y, cw, 14, 'FD');
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(7.5);
-    doc.setTextColor(40,40,40);
-    var cgText = 'Este Termo tem por objetivo a adesão do CLIENTE ao Contrato Prestação de Serviços de Rastreamento Veicular e Comodato de Equipamentos, o que declara ter recebido uma cópia, lido, compreendido e aceito, assumido todas as obrigações constantes do Contrato.';
-    doc.splitTextToSize(cgText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
-    y += 16; space(2);
+    doc.setFillColor(255,255,255); doc.rect(ml,y,cw,14,'FD');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(40,40,40);
+    doc.splitTextToSize('Este Termo tem por objetivo a adesão do CLIENTE ao Contrato Prestação de Serviços de Rastreamento Veicular e Comodato de Equipamentos, o que declara ter recebido uma cópia, lido, compreendido e aceito, assumido todas as obrigações constantes do Contrato.',cw-4).forEach(function(l,i){doc.text(l,ml+2,y+4+(i*3.8));});
+    y+=16; space(2);
 
-    /* LOCAÇÃO E ASSINATURAS */
     addSection('LOCAÇÃO E ASSINATURAS');
-    doc.setFillColor(255,255,255);
-    doc.rect(ml, y, cw, 18, 'FD');
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(7.5);
-    var loText = 'Declara o CLIENTE que recebeu nesta data, os equipamentos, em COMODATO, os bens descritos na TABELA I, em perfeitas condições de uso e instaladas no veículo indicado, comprometendo-se a restituí-los nas mesmas condições de uso e conservação em que se encontram nesta data, sob pena de, assim não fazendo, indenizar a CONTRATADA no valor de mercado de cada bem indicado na mesma TABELA I. E por estarem de acordo com as obrigações acima estipuladas, as partes firmam o presente termo.';
-    doc.splitTextToSize(loText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
-    y += 20; space(2);
+    doc.setFillColor(255,255,255); doc.rect(ml,y,cw,18,'FD');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+    doc.splitTextToSize('Declara o CLIENTE que recebeu nesta data, os equipamentos, em COMODATO, os bens descritos na TABELA I, em perfeitas condições de uso e instaladas no veículo indicado, comprometendo-se a restituí-los nas mesmas condições de uso e conservação em que se encontram nesta data, sob pena de, assim não fazendo, indenizar a CONTRATADA no valor de mercado de cada bem indicado na mesma TABELA I. E por estarem de acordo com as obrigações acima estipuladas, as partes firmam o presente termo.',cw-4).forEach(function(l,i){doc.text(l,ml+2,y+4+(i*3.8));});
+    y+=20; space(2);
 
-    /* ACEITE */
     addSection('CONTRATANTE OU REPRESENTANTE LEGAL DA CONTRATANTE');
-    doc.setFillColor(255,255,255);
-    doc.rect(ml, y, cw, 16, 'FD');
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(7.5);
-    var acText = 'Aceito integralmente, sem qualquer condição, ressalva ou restrição, assumir inteira responsabilidade pela veracidade das informações por mim fornecidas, reconhecendo que a minha confirmação reflete adesão às mencionadas condições gerais, valendo juridicamente como autorização de fornecimento dos serviços.';
-    doc.splitTextToSize(acText, cw-4).forEach(function(l,i){ doc.text(l, ml+2, y+4+(i*3.8)); });
-    y += 18; space(4);
+    doc.setFillColor(255,255,255); doc.rect(ml,y,cw,16,'FD');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5);
+    doc.splitTextToSize('Aceito integralmente, sem qualquer condição, ressalva ou restrição, assumir inteira responsabilidade pela veracidade das informações por mim fornecidas, reconhecendo que a minha confirmação reflete adesão às mencionadas condições gerais, valendo juridicamente como autorização de fornecimento dos serviços.',cw-4).forEach(function(l,i){doc.text(l,ml+2,y+4+(i*3.8));});
+    y+=18; space(4);
 
-    /* ASSINATURA */
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(9);
-    doc.setTextColor(30,30,30);
-    var anoAtual = hoje.getFullYear();
-    doc.text('Salvador, _______ de __________________________ de ' + anoAtual + '.', ml, y);
-    y += 12;
-    doc.text('Assinatura: ', ml, y);
-    doc.line(ml+22, y, ml+120, y);
-    y += 16;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(30,30,30);
+    doc.text('Salvador, _______ de __________________________ de '+hoje.getFullYear()+'.',ml,y);
+    y+=12;
+    doc.text('Assinatura: ',ml,y); doc.line(ml+22,y,ml+120,y);
+    y+=16;
 
-    /* RODAPÉ */
-    doc.setFont('helvetica','italic');
-    doc.setFontSize(7);
-    doc.setTextColor(150,150,150);
-    doc.text('TrackerMap — contato@trackermap.app.br — Salvador, BA', pw/2, 287, {align:'center'});
+    doc.setFont('helvetica','italic'); doc.setFontSize(7); doc.setTextColor(150,150,150);
+    doc.text('TrackerMap — contato@trackermap.app.br — Salvador, BA',pw/2,287,{align:'center'});
 
-    /* SALVAR */
-    var nomeArq = 'Termo_' + (c.name||'cliente').replace(/\s+/g,'_') + '_' + dataHoje.replace(/\//g,'-') + '.pdf';
+    var nomeArq='Termo_'+(c.name||'cliente').replace(/\s+/g,'_')+'_'+dataHoje.replace(/\//g,'-')+'.pdf';
     doc.save(nomeArq);
-    document.getElementById('ct-status').innerHTML = '<span style="color:#4CAF50">✅ PDF gerado: ' + nomeArq + '</span>';
-
+    document.getElementById('ct-status').innerHTML = '<span style="color:#4CAF50">✅ PDF gerado: '+nomeArq+'</span>';
   } catch(e) {
     console.error(e);
-    document.getElementById('ct-status').innerHTML = '<span style="color:#E53935">❌ Erro ao gerar PDF: ' + e.message + '</span>';
+    document.getElementById('ct-status').innerHTML = '<span style="color:#E53935">❌ Erro ao gerar PDF: '+e.message+'</span>';
   }
 }
 </script>
